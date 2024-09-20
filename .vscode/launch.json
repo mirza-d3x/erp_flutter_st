@@ -1,0 +1,71 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ERP_APP-DEV-Debug",
+            "request": "launch",
+            "program": "lib/main_dev.dart",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        // {
+        //     "name": "ERP_APP-DEV-Profile",
+        //     "request": "launch",
+        //     "program": "lib/main_dev.dart",
+        //     "type": "dart",
+        //     "flutterMode": "profile",
+        //     "args": [
+        //         "--flavor",
+        //         "dev"
+        //     ]
+        // },
+        {
+            "name": "ERP_APP-DEV-Release",
+            "request": "launch",
+            "program": "lib/main_dev.dart",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "dev"
+            ]
+        },
+        {
+            "name": "ERP_APP-PROD-Debug",
+            "request": "launch",
+            "program": "lib/main_prod.dart",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
+        },
+        // {
+        //     "name": "ERP_APP-PROD-Profile",
+        //     "request": "launch",
+        //     "program": "lib/main_prod.dart",
+        //     "type": "dart",
+        //     "flutterMode": "profile",
+        //     "args": [
+        //         "--flavor",
+        //         "prod"
+        //     ]
+        // },
+        {
+            "name": "ERP_APP-PROD-Releae",
+            "request": "launch",
+            "program": "lib/main_prod.dart",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--flavor",
+                "prod"
+            ]
+        }
+    ]
+}
