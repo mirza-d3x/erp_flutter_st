@@ -6,7 +6,6 @@ BuildEnvironment? _env;
 class BuildEnvironment {
   /// The backend server.
   final String baseUrl;
-  final String anonKey;
   final BuildFlavor flavor;
   final String environment;
 
@@ -16,7 +15,6 @@ class BuildEnvironment {
   BuildEnvironment._init({
     required this.flavor,
     required this.baseUrl,
-    required this.anonKey,
     required this.environment,
   }) {
     switch (environment) {
@@ -37,12 +35,10 @@ class BuildEnvironment {
     required flavor,
     required baseUrl,
     required environment,
-    required anonKey,
   }) =>
       _env ??= BuildEnvironment._init(
         flavor: flavor,
         baseUrl: baseUrl,
         environment: environment,
-        anonKey: anonKey,
       );
 }
