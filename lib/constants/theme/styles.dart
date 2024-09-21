@@ -80,42 +80,42 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
       return TextStyle(
         fontSize: 14.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         color: getFontColor(color),
       );
     case FontStyle.headLineLarge:
       return TextStyle(
         fontSize: 32.sp,
         color: getFontColor(color),
-        fontFamily: 'PPWoodland',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.titleleLargeMedBold:
       return TextStyle(
         fontSize: 22.sp,
         color: getFontColor(color),
-        fontFamily: 'PPWoodland',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.headLineSmall:
       return TextStyle(
         fontSize: 24.sp,
         color: getFontColor(color),
-        fontFamily: 'PPWoodland',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.bodySmall:
       return TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         color: getFontColor(color),
       );
     case FontStyle.bodySmallUnderLined:
       return TextStyle(
         fontSize: 12.sp,
         fontWeight: FontWeight.w400,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         decoration: TextDecoration.underline,
         color: getFontColor(color),
       );
@@ -123,194 +123,194 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
       return TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w500,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         color: getFontColor(color),
       );
     case FontStyle.titleMedium:
       return TextStyle(
         fontSize: 32.sp,
         color: getFontColor(color),
-        fontFamily: 'PPWoodland',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
       );
     case FontStyle.titleSmallSemiBold:
       return TextStyle(
           fontSize: 16.sp,
           color: getFontColor(color),
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w500);
     case FontStyle.titleMediumSemiBold:
       return TextStyle(
           fontSize: 14.sp,
           color: getFontColor(color),
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w500);
     case FontStyle.headerLRegular:
       return TextStyle(
           fontSize: 34.sp,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
-          fontWeight: FontWeight.w400);
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.w600);
     case FontStyle.headerMBold:
       return TextStyle(
           fontSize: 24.sp,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.headerMSemiBold:
       return TextStyle(
           fontSize: 24,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.headerMregular:
       return TextStyle(
           fontSize: 24,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.headerSBold:
       return TextStyle(
           fontSize: 20,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.headerSSemiBold:
       return TextStyle(
           fontSize: 20,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.headerSregular:
       return TextStyle(
           fontSize: 20,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodyLarge:
       return TextStyle(
           fontSize: 16.sp,
           color: getFontColor(color),
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.headerXSSemiBold:
       return TextStyle(
           fontSize: 16.sp,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.headerXSregular:
       return TextStyle(
           fontSize: 16,
           color: getFontColor(color),
           letterSpacing: 0.5,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodyLBold:
       return TextStyle(
           fontSize: 14.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodyLSemiBold:
       return TextStyle(
           fontSize: 14.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodyLregular:
       return TextStyle(
           fontSize: 14.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodyMBold:
       return TextStyle(
           fontSize: 12.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodyMSemiBold:
       return TextStyle(
           fontSize: 12.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodyMregular:
       return TextStyle(
           fontSize: 12.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodySBold:
       return TextStyle(
           fontSize: 10.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodySSemiBold:
       return TextStyle(
           fontSize: 10.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodySregular:
       return TextStyle(
           fontSize: 10.sp,
           color: getFontColor(color),
           letterSpacing: 0.3,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.tagNameLBold:
       return TextStyle(
           fontSize: 10.sp,
           color: getFontColor(color),
           letterSpacing: 0.2,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.tagNameLSemiBold:
       return TextStyle(
           fontSize: 10.sp,
           color: getFontColor(color),
           letterSpacing: 0.2,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.tagNameSBold:
       return TextStyle(
           fontSize: 9,
           color: getFontColor(color),
           letterSpacing: 0.2,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.tagNameSSemiBold:
       return TextStyle(
           fontSize: 9,
           color: getFontColor(color),
           letterSpacing: 0.2,
-          fontFamily: 'NotoSans',
+          fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.navigationLabelSelected:
       return TextStyle(
         fontSize: 10.sp,
         color: getFontColor(color),
         letterSpacing: 0.3,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w600,
       );
     case FontStyle.navigationLabelUnselected:
@@ -318,7 +318,7 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
         fontSize: 10.sp,
         color: getFontColor(color),
         letterSpacing: 0.3,
-        fontFamily: 'NotoSans',
+        fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
       );
   }

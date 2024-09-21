@@ -9,6 +9,13 @@ final class NavigationController {
       (route) => false,
     );
   }
+
+  void openLoginPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      RouteNames.login,
+      (route) => false,
+    );
+  }
   // void createProductsPageRoute(BuildContext context, ProductModel model) {
   //   Navigator.of(context).pushNamed(RouteNames.products, arguments: model);
   // }

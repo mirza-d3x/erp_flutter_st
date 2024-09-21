@@ -6,6 +6,8 @@ Route<dynamic>? Function(RouteSettings)? onGenerateAppRoute(
     switch (settings.name) {
       case RouteNames.splash:
         return routesFactory.createSplashPageRoute();
+      case RouteNames.login:
+        return routesFactory.createLoginPageRoute();
 
       //   return routesFactory.createCartPageRoute();
       // case RouteNames.products:

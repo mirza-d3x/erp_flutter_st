@@ -13,6 +13,13 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
+  @override
+  Route createLoginPageRoute() {
+    return CustomRoute(
+      builder: LoginScreenRouteBuilder(_serviceLocator),
+    );
+  }
+
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {
 //     return CustomRoute(

@@ -20,6 +20,7 @@ class SplashCubit extends Cubit<SplashState> {
       const Duration(seconds: 1),
       () {
         // Navigate after splash loading
+        _serviceLocator.navigationService.openLoginPageRoute(context);
       },
     );
   }
