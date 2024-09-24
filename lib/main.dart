@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:erp_mobile/app/app.dart';
+import 'package:erp_mobile/config/env/environment.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,7 +19,7 @@ Future<void> mainInit() async {
     () async {
       WidgetsFlutterBinding.ensureInitialized();
 
-      final ServiceLocator serviceLocator = ServiceLocator()
+      final ServiceLocator serviceLocator = ServiceLocator(env!.baseUrl)
         ..configureServices();
 
       await SystemChrome.setPreferredOrientations(
