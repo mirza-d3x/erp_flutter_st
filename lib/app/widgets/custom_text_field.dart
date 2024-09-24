@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLines;
   final int? minLines;
   final String? Function(String?)? validator;
+  final String? Function(String?)? onChanged;
 
   const CustomTextField({
     required this.controller,
@@ -45,6 +46,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines = 1,
     this.validator,
+    this.onChanged,
   });
 
   @override
@@ -104,6 +106,7 @@ class CustomTextFieldState extends State<CustomTextField> {
               ),
             ),
             child: TextFormField(
+              onChanged: widget.onChanged,
               validator: _validate,
               maxLines: widget.maxLines,
               minLines: widget.minLines,
