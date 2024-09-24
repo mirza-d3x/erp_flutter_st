@@ -8,6 +8,8 @@ Route<dynamic>? Function(RouteSettings)? onGenerateAppRoute(
         return routesFactory.createSplashPageRoute();
       case RouteNames.login:
         return routesFactory.createLoginPageRoute();
+      case RouteNames.pos:
+        return routesFactory.createPosPageRoute();
 
       //   return routesFactory.createCartPageRoute();
       // case RouteNames.products:

@@ -143,7 +143,11 @@ class LoginScreen extends StatelessWidget {
                           SizedBox(height: 16.h),
                           CustomElevatedButton(
                             text: "Sign In",
-                            onPressed: state.isPasswordVerified ? () {} : null,
+                            onPressed: state.isPasswordVerified
+                                ? () {
+                                    cubit.onSignin(context);
+                                  }
+                                : null,
                           ),
                         ],
                       ),

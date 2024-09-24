@@ -20,6 +20,13 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
+  @override
+  Route createPosPageRoute() {
+    return CustomRoute(
+      builder: PosRouteBuilder(_serviceLocator),
+    );
+  }
+
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {
 //     return CustomRoute(

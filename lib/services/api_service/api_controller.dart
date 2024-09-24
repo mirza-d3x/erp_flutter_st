@@ -84,8 +84,8 @@ class ApiController implements ApiServices {
       {required String branchName}) async {
     try {
       var res = await _client
-          .get(Uri.parse(_baseUrl + Endpoints.userBranches + branchName));
-      consoleLog("Request: $_baseUrl${Endpoints.userBranches}$branchName");
+          .get(Uri.parse('$_baseUrl${Endpoints.branchMaster + branchName}'));
+      consoleLog("Request: $_baseUrl${Endpoints.branchMaster}$branchName");
       consoleLog("Verify User Branche Master Response: ${res.body}");
       return VerifyUser.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
