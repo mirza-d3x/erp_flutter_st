@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/theme/styles.dart';
 
@@ -25,9 +24,9 @@ class CustomToggleSwitchState extends State<CustomToggleSwitch> {
         widget.onToggle(!widget.isActive);
       },
       child: Container(
-        width: 52.w,
-        height: 32.h,
-        padding: EdgeInsets.symmetric(horizontal: 8.h, vertical: 2.h),
+        width: 52,
+        height: 32,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
         decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             side: const BorderSide(
@@ -42,9 +41,9 @@ class CustomToggleSwitchState extends State<CustomToggleSwitch> {
           alignment:
               widget.isActive ? Alignment.centerRight : Alignment.centerLeft,
           child: Container(
-            width: 24.sp,
-            height: 24.sp,
-            padding: EdgeInsets.all(2.sp),
+            width: 24,
+            height: 24,
+            padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               color: customColors().grey900,
               shape: BoxShape.circle,

@@ -1,7 +1,6 @@
 import 'package:erp_mobile/constants/theme/custom_theme.dart';
 import 'package:erp_mobile/constants/theme/model_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum FontColor {
   white,
@@ -78,42 +77,42 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
   switch (fontStyle) {
     case FontStyle.titleSmall:
       return TextStyle(
-        fontSize: 14.sp,
+        fontSize: 14,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
         color: getFontColor(color),
       );
     case FontStyle.headLineLarge:
       return TextStyle(
-        fontSize: 32.sp,
+        fontSize: 32,
         color: getFontColor(color),
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.titleleLargeMedBold:
       return TextStyle(
-        fontSize: 22.sp,
+        fontSize: 22,
         color: getFontColor(color),
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.headLineSmall:
       return TextStyle(
-        fontSize: 24.sp,
+        fontSize: 24,
         color: getFontColor(color),
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w700,
       );
     case FontStyle.bodySmall:
       return TextStyle(
-        fontSize: 12.sp,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
         color: getFontColor(color),
       );
     case FontStyle.bodySmallUnderLined:
       return TextStyle(
-        fontSize: 12.sp,
+        fontSize: 12,
         fontWeight: FontWeight.w400,
         fontFamily: 'Roboto',
         decoration: TextDecoration.underline,
@@ -128,33 +127,33 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
       );
     case FontStyle.titleMedium:
       return TextStyle(
-        fontSize: 32.sp,
+        fontSize: 32,
         color: getFontColor(color),
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w400,
       );
     case FontStyle.titleSmallSemiBold:
       return TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           color: getFontColor(color),
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500);
     case FontStyle.titleMediumSemiBold:
       return TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: getFontColor(color),
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500);
     case FontStyle.headerLRegular:
       return TextStyle(
-          fontSize: 34.sp,
+          fontSize: 34,
           color: getFontColor(color),
           letterSpacing: 0.5,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.headerMBold:
       return TextStyle(
-          fontSize: 24.sp,
+          fontSize: 24,
           color: getFontColor(color),
           letterSpacing: 0.5,
           fontFamily: 'Roboto',
@@ -196,13 +195,13 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           fontWeight: FontWeight.w400);
     case FontStyle.bodyLarge:
       return TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           color: getFontColor(color),
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.headerXSSemiBold:
       return TextStyle(
-          fontSize: 16.sp,
+          fontSize: 16,
           color: getFontColor(color),
           letterSpacing: 0.5,
           fontFamily: 'Roboto',
@@ -216,77 +215,77 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           fontWeight: FontWeight.w400);
     case FontStyle.bodyLBold:
       return TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodyLSemiBold:
       return TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodyLregular:
       return TextStyle(
-          fontSize: 14.sp,
+          fontSize: 14,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodyMBold:
       return TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodyMSemiBold:
       return TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodyMregular:
       return TextStyle(
-          fontSize: 12.sp,
+          fontSize: 12,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.bodySBold:
       return TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.bodySSemiBold:
       return TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w600);
     case FontStyle.bodySregular:
       return TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w400);
     case FontStyle.tagNameLBold:
       return TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: getFontColor(color),
           letterSpacing: 0.2,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
     case FontStyle.tagNameLSemiBold:
       return TextStyle(
-          fontSize: 10.sp,
+          fontSize: 10,
           color: getFontColor(color),
           letterSpacing: 0.2,
           fontFamily: 'Roboto',
@@ -307,7 +306,7 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           fontWeight: FontWeight.w600);
     case FontStyle.navigationLabelSelected:
       return TextStyle(
-        fontSize: 10.sp,
+        fontSize: 10,
         color: getFontColor(color),
         letterSpacing: 0.3,
         fontFamily: 'Roboto',
@@ -315,7 +314,7 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
       );
     case FontStyle.navigationLabelUnselected:
       return TextStyle(
-        fontSize: 10.sp,
+        fontSize: 10,
         color: getFontColor(color),
         letterSpacing: 0.3,
         fontFamily: 'Roboto',

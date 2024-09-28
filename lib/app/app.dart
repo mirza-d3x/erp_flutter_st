@@ -1,7 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import 'package:provider/provider.dart';
 
 import '../constants/theme/custom_theme.dart';
@@ -47,20 +47,17 @@ class YearApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(393, 852),
-      child: AppTheme(
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: '25 Year More',
-          themeMode: CustomTheme.modelTheme == CustomMode.light
-              ? ThemeMode.light
-              : ThemeMode.dark,
-          theme: Provider.of<CustomTheme>(context).currentTheme,
-          initialRoute: initialRoute,
-          onGenerateRoute: onGenerateAppRoute(
-            AppRoutesFactory(serviceLocator),
-          ),
+    return AppTheme(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: '25 Year More',
+        themeMode: CustomTheme.modelTheme == CustomMode.light
+            ? ThemeMode.light
+            : ThemeMode.dark,
+        theme: Provider.of<CustomTheme>(context).currentTheme,
+        initialRoute: initialRoute,
+        onGenerateRoute: onGenerateAppRoute(
+          AppRoutesFactory(serviceLocator),
         ),
       ),
     );

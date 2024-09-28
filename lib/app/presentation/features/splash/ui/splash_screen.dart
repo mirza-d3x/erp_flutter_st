@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../constants/assets/image_assets.dart';
 import '../cubit/splash_cubit.dart';
@@ -38,8 +37,8 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ),
         child: Image.asset(
-          width: 220.w,
-          height: 160.h,
+          width: 220,
+          height: 160,
           AssetImages.splashLogo,
         ),
       ),

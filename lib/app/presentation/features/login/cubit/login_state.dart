@@ -30,3 +30,9 @@ final class LoginInitial extends LoginState {
     required this.selectedFinancialYeaers,
   });
 }
+
+class LoginErrorState extends LoginState {
+  final String errorMessage;
+
+  const LoginErrorState(this.errorMessage);
+}

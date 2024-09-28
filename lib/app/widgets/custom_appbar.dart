@@ -1,7 +1,6 @@
 import 'package:erp_mobile/constants/assets/icon_assets.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
@@ -26,8 +25,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: IconButton(
         icon: Image.asset(
           icon,
-          height: 28.sp,
-          width: 28.sp,
+          height: 28,
+          width: 28,
         ),
         onPressed: onBackPressed,
       ),

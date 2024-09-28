@@ -22,8 +22,12 @@ Future<void> mainInit() async {
       final ServiceLocator serviceLocator = ServiceLocator(env!.baseUrl)
         ..configureServices();
 
-      await SystemChrome.setPreferredOrientations(
-          [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+      await SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight
+      ]);
 
       runApp(
         Root(

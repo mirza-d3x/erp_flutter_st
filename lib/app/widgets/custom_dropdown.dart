@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../constants/assets/icon_assets.dart';
 import '../../constants/theme/styles.dart';
 
 class CustomDropdownPicker extends StatefulWidget {
@@ -39,7 +36,7 @@ class CustomDropdownPickerState extends State<CustomDropdownPicker> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 56.h,
+      height: 56,
       decoration: BoxDecoration(
         color: Colors.white,
         border: Border.all(
@@ -61,7 +58,7 @@ class CustomDropdownPickerState extends State<CustomDropdownPicker> {
         },
         icon: const Icon(Icons.arrow_downward),
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           border: InputBorder.none,
           labelStyle: customTextStyle(
             fontStyle: FontStyle.bodySmall,
@@ -78,7 +75,7 @@ class CustomDropdownPickerState extends State<CustomDropdownPicker> {
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: customColors().grey900,
-                fontSize: 10.sp,
+                fontSize: 10,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Roboto',
               ),

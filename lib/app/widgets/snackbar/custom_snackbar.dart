@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/theme/styles.dart';
 
@@ -14,8 +13,8 @@ class CustomSnackbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 361.w,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+      width: 361,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
         color: grey700,
         borderRadius: BorderRadius.circular(4),
@@ -40,7 +39,7 @@ class CustomSnackbar extends StatelessWidget {
 
 void showCustomSnackbar(BuildContext context, String message) {
   final snackBar = SnackBar(
-    width: 361.w,
+    width: 361,
     backgroundColor: Colors.transparent,
     elevation: 0,
     content: CustomSnackbar(message: message),

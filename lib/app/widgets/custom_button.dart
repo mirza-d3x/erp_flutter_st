@@ -1,6 +1,5 @@
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton({
@@ -19,8 +18,8 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 361.0.w,
-      height: 50.0.h,
+      width: 361.0,
+      height: 50.0,
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
@@ -28,17 +27,17 @@ class CustomElevatedButton extends StatelessWidget {
           shadowColor: Colors.transparent,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(
-              26.0.sp,
+              26.0,
             ),
           ),
         ),
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.0.w, vertical: 9.5.h),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 9.5),
           child: isLoading
-              ? SizedBox(
-                  width: 24.0.w,
-                  height: 24.h,
-                  child: const CircularProgressIndicator(),
+              ? const SizedBox(
+                  width: 24.0,
+                  height: 24,
+                  child: CircularProgressIndicator(),
                 )
               : Text(
                   text,

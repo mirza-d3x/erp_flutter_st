@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:erp_mobile/app/repository/modesl/response_models/verify_user_model.dart';
 import 'package:erp_mobile/app/widgets/snackbar/custom_snackbar.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +8,9 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
   final ServiceLocator _serviceLocator;
+  late final FocusNode userNameFocusNode;
+  late final FocusNode passwordFocusNode;
+
   LoginCubit(this._serviceLocator)
       : super(const LoginInitial(
             isPasswordFieldEnabled: false,
@@ -42,6 +44,25 @@ class LoginCubit extends Cubit<LoginState> {
     passwordController = TextEditingController();
     branchController = TextEditingController();
     yearController = TextEditingController();
+
+    // Initialize FocusNodes
+    userNameFocusNode = FocusNode();
+    passwordFocusNode = FocusNode();
+
+    // Add listeners to FocusNodes
+    userNameFocusNode.addListener(() {
+      if (!userNameFocusNode.hasFocus) {
+        // Call verification when username field loses focus
+        onVerifyUsername();
+      }
+    });
+
+    passwordFocusNode.addListener(() {
+      if (!passwordFocusNode.hasFocus) {
+        // Call verification when password field loses focus
+        onVerifyPassword();
+      }
+    });
   }
 
   void onUserNameChanged(String value) {
@@ -69,19 +90,20 @@ class LoginCubit extends Cubit<LoginState> {
     }
   }
 
-  void onVerifyUsername(BuildContext context) async {
+  void onVerifyUsername() async {
     final verifyUser = await _serviceLocator.apiService
         .sendVerifyUserRequest(userName: userNameController.text.trim());
 
     if (verifyUser.status == 'Success') {
       _isPasswordFieldEnabled = true;
-      emitState();
     } else {
-      showCustomSnackbar(context, verifyUser.message);
+      // You can handle errors by emitting states with error messages
+      emit(LoginErrorState(verifyUser.message));
     }
+    emitState();
   }
 
-  void onVerifyPassword(BuildContext context) async {
+  void onVerifyPassword() async {
     final verifyUser = await _serviceLocator.apiService
         .sendVerifyPasswordRequest(
             userName: userNameController.text.trim(),
@@ -89,14 +111,12 @@ class LoginCubit extends Cubit<LoginState> {
 
     if (verifyUser.status == 'Success') {
       _isPasswordVerified = true;
-      await getUserBranches(context);
-      emitState();
-    } else {
-      showCustomSnackbar(context, verifyUser.message);
-    }
+      await getUserBranches();
+    } else {}
+    emitState();
   }
 
-  Future getUserBranches(BuildContext context) async {
+  Future getUserBranches() async {
     final verifyUser = await _serviceLocator.apiService
         .sendUserBranchesRequest(userName: userNameController.text.trim());
 
@@ -106,16 +126,15 @@ class LoginCubit extends Cubit<LoginState> {
           (e) => e.branchCode,
         ));
         _selectedBranch = _userBranches.first;
-        await getFinancialYears(context);
+        await getFinancialYears();
       }
-
-      emitState();
     } else {
-      showCustomSnackbar(context, verifyUser.message);
+      emit(LoginErrorState(verifyUser.message));
     }
+    emitState();
   }
 
-  Future getFinancialYears(BuildContext context) async {
+  Future getFinancialYears() async {
     final verifyUser = await _serviceLocator.apiService
         .sendFinancialYearRequest(
             userName: userNameController.text.trim(), branch: _selectedBranch);
@@ -127,11 +146,10 @@ class LoginCubit extends Cubit<LoginState> {
         ));
         _selectedYears = _financialYears.first;
       }
-
-      emitState();
     } else {
-      showCustomSnackbar(context, verifyUser.message);
+      emit(LoginErrorState(verifyUser.message));
     }
+    emitState();
   }
 
   void selectBranch(String? branch) {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/theme/styles.dart';
 
@@ -24,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final int? minLines;
   final String? Function(String?)? validator;
   final String? Function(String?)? onChanged;
+  final FocusNode focusNode;
 
   const CustomTextField({
     required this.controller,
@@ -47,6 +47,7 @@ class CustomTextField extends StatefulWidget {
     this.minLines = 1,
     this.validator,
     this.onChanged,
+    required this.focusNode,
   });
 
   @override
@@ -54,24 +55,14 @@ class CustomTextField extends StatefulWidget {
 }
 
 class CustomTextFieldState extends State<CustomTextField> {
-  late FocusNode _focusNode;
   late TextEditingController _controller;
   String? _errorText;
 
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
-    _controller = widget.controller;
-    _focusNode.addListener(() {
-      setState(() {});
-    });
-  }
 
-  @override
-  void dispose() {
-    _focusNode.dispose();
-    super.dispose();
+    _controller = widget.controller;
   }
 
   String? _validate(String? value) {
@@ -83,26 +74,20 @@ class CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
-    bool isFocused = _focusNode.hasFocus;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GestureDetector(
-          onTap: () => _focusNode.requestFocus(),
+          onTap: () => widget.focusNode.requestFocus(),
           child: Container(
-            height: 56.h,
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            height: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             alignment: Alignment.center,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(widget.borderRadius),
               border: Border.all(
                 width: 1,
-                color: _errorText != null
-                    ? widget.errorBorderColor
-                    : isFocused
-                        ? widget.focusedBorderColor
-                        : widget.unfocusedBorderColor,
               ),
             ),
             child: TextFormField(
@@ -116,25 +101,22 @@ class CustomTextFieldState extends State<CustomTextField> {
               cursorErrorColor: widget.errorBorderColor,
               controller: _controller,
               obscureText: widget.obscureText,
-              focusNode: _focusNode,
-              cursorHeight: 20.h,
+              focusNode: widget.focusNode,
+              cursorHeight: 20,
               cursorOpacityAnimates: true,
               decoration: InputDecoration(
                 floatingLabelAlignment: FloatingLabelAlignment.start,
                 filled: true,
                 fillColor: Colors.white,
                 hintText: widget.labelText,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   fontFamily: 'Roboto',
-                  color: isFocused
-                      ? customColors().grey400
-                      : customColors().grey600,
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   fontWeight: FontWeight.w400,
                 ),
                 errorStyle: TextStyle(
                   color: widget.errorBorderColor,
-                  fontSize: 12.sp,
+                  fontSize: 12,
                   fontFamily: 'Roboto',
                 ),
                 contentPadding: widget.contentPadding,
@@ -145,7 +127,7 @@ class CustomTextFieldState extends State<CustomTextField> {
               ),
               style: TextStyle(
                 color: customColors().grey900,
-                fontSize: 12.sp,
+                fontSize: 12,
                 fontWeight: FontWeight.w400,
                 fontFamily: 'Roboto',
               ),

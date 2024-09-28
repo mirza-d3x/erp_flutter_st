@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/theme/styles.dart';
 
@@ -17,8 +16,8 @@ class CustomProgressBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 14.h,
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
+      height: 14,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       decoration: const BoxDecoration(color: transparent),
       child: Row(
         mainAxisSize: MainAxisSize.min,

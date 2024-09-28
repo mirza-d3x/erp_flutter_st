@@ -1,7 +1,6 @@
 import 'package:erp_mobile/constants/assets/icon_assets.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDatePicker extends StatefulWidget {
   final String labelText;
@@ -78,8 +77,9 @@ class CustomDatePickerState extends State<CustomDatePicker> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 56.h,
-                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 10.w),
+                height: 56,
+                padding:
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 10),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
@@ -104,20 +104,20 @@ class CustomDatePickerState extends State<CustomDatePicker> {
                     ),
                     Image.asset(
                       AssetIcons.calendarIcon,
-                      height: 24.sp,
-                      width: 24.sp,
+                      height: 24,
+                      width: 24,
                       color: customColors().grey600,
                     ),
                   ],
                 ),
               ),
               if (state.hasError) ...[
-                SizedBox(height: 8.h),
+                const SizedBox(height: 8),
                 Text(
                   state.errorText!,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.red,
-                    fontSize: 12.sp,
+                    fontSize: 12,
                     fontFamily: 'Nato Sans',
                   ),
                 ),

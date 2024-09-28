@@ -1,6 +1,5 @@
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomDivider extends StatelessWidget {
   final String text;
@@ -21,7 +20,7 @@ class CustomDivider extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Text(
             text,
             style: customTextStyle(
