@@ -94,6 +94,21 @@ class ApiController implements ApiServices {
       rethrow;
     }
   }
+
+  @override
+  Future<ProductModulesModel> sendProductModuleModelRequest() async {
+    try {
+      var res =
+          await _client.get(Uri.parse('$_baseUrl${Endpoints.productModules}'));
+      consoleLog("Request: $_baseUrl${Endpoints.productModules}");
+      consoleLog("Verify User Branche Master Response: ${res.body}");
+      return ProductModulesModel.fromJson(_handleResponse(res));
+    } catch (error, stackTrace) {
+      consoleLog("Error while Sending Product Modules: ",
+          error: error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
 }
 
 Map<String, dynamic> _handleResponse(http.Response response) {

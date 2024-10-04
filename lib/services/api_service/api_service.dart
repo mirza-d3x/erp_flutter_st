@@ -9,4 +9,5 @@ abstract interface class ApiServices {
       {required String userName, required String branch});
 
   Future<VerifyUser> sendBranchMasterRequest({required String branchName});
+  Future<ProductModulesModel> sendProductModuleModelRequest();
 }

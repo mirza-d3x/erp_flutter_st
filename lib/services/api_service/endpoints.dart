@@ -4,4 +4,6 @@ class Endpoints {
   static const String userBranches = 'UseBranchNetMaster/';
   static const String financialYear = 'FinancialYear/';
   static const String branchMaster = 'BranchMaster/';
+  static const String productModules =
+      'SuntechProdModuleMaster/GetProductModuleList/';
 }
