@@ -84,7 +84,7 @@ class LoginCubit extends Cubit<LoginState> {
         .sendBranchMasterRequest(branchName: _selectedBranch);
 
     if (verifyUser.status == 'Success') {
-      _serviceLocator.navigationService.openPosPageRoute(context);
+      _serviceLocator.navigationService.openDashboardPageRoute(context);
     } else {
       showCustomSnackbar(context, verifyUser.message);
     }

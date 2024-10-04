@@ -39,14 +39,105 @@ class LoginScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Expanded(
-                              child: _buildLogoAndTitle(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(AssetImages.splashLogo),
+                                  const SizedBox(height: 16),
+                                  Text(
+                                    "Login",
+                                    style: customTextStyle(
+                                      fontStyle: FontStyle.headLineSmall,
+                                      color: FontColor.fontPrimary,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Expanded(
-                              child: _buildLoginFields(
-                                context,
-                                state,
-                                cubit,
-                                constraints,
+                              child: PhysicalModel(
+                                color: blue100,
+                                elevation: 5,
+                                child: Container(
+                                  width: constraints.maxWidth * 0.5,
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(5)),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CustomTextField(
+                                        controller: cubit.userNameController,
+                                        labelText: "Username",
+                                        focusNode: cubit.userNameFocusNode,
+                                        textInputAction: TextInputAction.next,
+                                        onChanged: (value) {
+                                          cubit.onUserNameChanged(value!);
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(height: 16),
+                                      AbsorbPointer(
+                                        absorbing:
+                                            !state.isPasswordFieldEnabled,
+                                        child: Opacity(
+                                          opacity: state.isPasswordFieldEnabled
+                                              ? 1
+                                              : 0.5,
+                                          child: CustomTextField(
+                                            controller:
+                                                cubit.passwordController,
+                                            labelText: "Password",
+                                            textInputAction:
+                                                TextInputAction.next,
+                                            focusNode: cubit.passwordFocusNode,
+                                            onChanged: (value) {
+                                              cubit.onPasswordChanged(value!);
+                                              return null;
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      AbsorbPointer(
+                                        absorbing: !state.isPasswordVerified,
+                                        child: Opacity(
+                                          opacity: state.isPasswordVerified
+                                              ? 1
+                                              : 0.5,
+                                          child: Column(
+                                            children: [
+                                              CustomDropdownPicker(
+                                                items: state.branches,
+                                                selectedValue:
+                                                    state.selectedBranches,
+                                                onChanged: cubit.selectBranch,
+                                              ),
+                                              const SizedBox(height: 16),
+                                              CustomDropdownPicker(
+                                                items: state.financialYears,
+                                                selectedValue: state
+                                                    .selectedFinancialYeaers,
+                                                onChanged: cubit.selectYear,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      CustomElevatedButton(
+                                        text: "Sign In",
+                                        onPressed: state.isPasswordVerified
+                                            ? () {
+                                                cubit.onSignin(context);
+                                              }
+                                            : null,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ],
@@ -55,13 +146,100 @@ class LoginScreen extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            _buildLogoAndTitle(),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(AssetImages.splashLogo),
+                                const SizedBox(height: 16),
+                                Text(
+                                  "Login",
+                                  style: customTextStyle(
+                                    fontStyle: FontStyle.headLineSmall,
+                                    color: FontColor.fontPrimary,
+                                  ),
+                                ),
+                              ],
+                            ),
                             const SizedBox(height: 16),
-                            _buildLoginFields(
-                              context,
-                              state,
-                              cubit,
-                              constraints,
+                            PhysicalModel(
+                              color: blue100,
+                              elevation: 5,
+                              child: Container(
+                                width: constraints.maxWidth * 0.7,
+                                padding: const EdgeInsets.all(16),
+                                decoration: const BoxDecoration(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(5)),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CustomTextField(
+                                      controller: cubit.userNameController,
+                                      labelText: "Username",
+                                      focusNode: cubit.userNameFocusNode,
+                                      textInputAction: TextInputAction.next,
+                                      onChanged: (value) {
+                                        cubit.onUserNameChanged(value!);
+                                        return null;
+                                      },
+                                    ),
+                                    const SizedBox(height: 16),
+                                    AbsorbPointer(
+                                      absorbing: !state.isPasswordFieldEnabled,
+                                      child: Opacity(
+                                        opacity: state.isPasswordFieldEnabled
+                                            ? 1
+                                            : 0.5,
+                                        child: CustomTextField(
+                                          controller: cubit.passwordController,
+                                          labelText: "Password",
+                                          textInputAction: TextInputAction.next,
+                                          focusNode: cubit.passwordFocusNode,
+                                          onChanged: (value) {
+                                            cubit.onPasswordChanged(value!);
+                                            return null;
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    AbsorbPointer(
+                                      absorbing: !state.isPasswordVerified,
+                                      child: Opacity(
+                                        opacity:
+                                            state.isPasswordVerified ? 1 : 0.5,
+                                        child: Column(
+                                          children: [
+                                            CustomDropdownPicker(
+                                              items: state.branches,
+                                              selectedValue:
+                                                  state.selectedBranches,
+                                              onChanged: cubit.selectBranch,
+                                            ),
+                                            const SizedBox(height: 16),
+                                            CustomDropdownPicker(
+                                              items: state.financialYears,
+                                              selectedValue:
+                                                  state.selectedFinancialYeaers,
+                                              onChanged: cubit.selectYear,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 16),
+                                    CustomElevatedButton(
+                                      text: "Sign In",
+                                      onPressed: state.isPasswordVerified
+                                          ? () {
+                                              cubit.onSignin(context);
+                                            }
+                                          : null,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -71,105 +249,6 @@ class LoginScreen extends StatelessWidget {
           }
           return Container();
         },
-      ),
-    );
-  }
-
-  // Method to build the logo and title once for reuse
-  Widget _buildLogoAndTitle() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(AssetImages.splashLogo),
-        const SizedBox(height: 16),
-        Text(
-          "Login",
-          style: customTextStyle(
-            fontStyle: FontStyle.headLineSmall,
-            color: FontColor.fontPrimary,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildLoginFields(BuildContext context, LoginInitial state,
-      LoginCubit cubit, BoxConstraints constraints) {
-    return PhysicalModel(
-      color: blue100,
-      elevation: 5,
-      child: Container(
-        width: constraints.maxWidth *
-            (constraints.maxWidth > constraints.maxHeight ? 0.5 : 0.7),
-        padding: const EdgeInsets.all(16),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Username field without the verify button
-            CustomTextField(
-              controller: cubit.userNameController,
-              labelText: "Username",
-              focusNode: cubit.userNameFocusNode,
-              textInputAction: TextInputAction.next,
-              onChanged: (value) {
-                cubit.onUserNameChanged(value!);
-                return null;
-              },
-            ),
-            const SizedBox(height: 16),
-            // Password field without the verify button
-            AbsorbPointer(
-              absorbing: !state.isPasswordFieldEnabled,
-              child: Opacity(
-                opacity: state.isPasswordFieldEnabled ? 1 : 0.5,
-                child: CustomTextField(
-                  controller: cubit.passwordController,
-                  labelText: "Password",
-                  textInputAction: TextInputAction.next,
-                  focusNode: cubit.passwordFocusNode,
-                  onChanged: (value) {
-                    cubit.onPasswordChanged(value!);
-                    return null;
-                  },
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            AbsorbPointer(
-              absorbing: !state.isPasswordVerified,
-              child: Opacity(
-                opacity: state.isPasswordVerified ? 1 : 0.5,
-                child: Column(
-                  children: [
-                    CustomDropdownPicker(
-                      items: state.branches,
-                      selectedValue: state.selectedBranches,
-                      onChanged: cubit.selectBranch,
-                    ),
-                    const SizedBox(height: 16),
-                    CustomDropdownPicker(
-                      items: state.financialYears,
-                      selectedValue: state.selectedFinancialYeaers,
-                      onChanged: cubit.selectYear,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            CustomElevatedButton(
-              text: "Sign In",
-              onPressed: state.isPasswordVerified
-                  ? () {
-                      cubit.onSignin(context);
-                    }
-                  : null,
-            ),
-          ],
-        ),
       ),
     );
   }
