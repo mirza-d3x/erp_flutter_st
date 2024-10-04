@@ -23,6 +23,7 @@ dependencies:
   flutter_secure_storage: ^9.2.2
   shared_preferences: ^2.3.2
   provider: ^6.1.2
+  flutter_svg: ^2.0.10+1
 
 dev_dependencies:
   flutter_test:
@@ -36,4 +37,5 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/svg/
 

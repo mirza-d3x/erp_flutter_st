@@ -1,17 +1,16 @@
 class AssetIcons {
-  static const String backArrow = 'assets/icons/back_arrow.png';
-  static const String calendarIcon = 'assets/icons/calender.png';
-  static const String dropDown = 'assets/icons/drop_down.png';
-  static const String edit = 'assets/icons/edit.png';
-  static const String close = 'assets/icons/close.png';
-
-  // Bottom Navigation Bar Icons =================================
-  static const String analytics = 'assets/icons/analytics_icon.png';
-  static const String coach = 'assets/icons/coach_icon.png';
-  static const String communities = 'assets/icons/communities_icon.png';
-  static const String connections = 'assets/icons/connections_icon.png';
-  static const String events = 'assets/icons/eventes_icon.png';
-  static const String projects = 'assets/icons/projects_icons.png';
-  static const String members = 'assets/icons/members.png';
-  // ============================================================
+  static const String addOns = 'assets/icons/svg/add_ons.svg';
+  static const String boiling = 'assets/icons/svg/boiling.svg';
+  static const String bullion = 'assets/icons/svg/bullion.svg';
+  static const String catalogue = 'assets/icons/svg/catalogue.svg';
+  static const String componentwise = 'assets/icons/svg/componentwise.svg';
+  static const String fixedAssets = 'assets/icons/svg/fixed_assets.svg';
+  static const String general = 'assets/icons/svg/General.svg';
+  static const String jewelleryManufacturing =
+      'assets/icons/svg/jwellery_manufacturing.svg';
+  static const String payroll = 'assets/icons/svg/Payroll.svg';
+  static const String refinery = 'assets/icons/svg/Refinery.svg';
+  static const String repairing = 'assets/icons/svg/Repairing.svg';
+  static const String retail = 'assets/icons/svg/Retail.svg';
+  static const String wholesale = 'assets/icons/svg/Wholesale.svg';
 }

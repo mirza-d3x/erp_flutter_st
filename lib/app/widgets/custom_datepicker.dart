@@ -1,4 +1,3 @@
-import 'package:erp_mobile/constants/assets/icon_assets.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
 
@@ -102,12 +101,13 @@ class CustomDatePickerState extends State<CustomDatePicker> {
                         color: FontColor.grey600,
                       ),
                     ),
-                    Image.asset(
-                      AssetIcons.calendarIcon,
-                      height: 24,
-                      width: 24,
-                      color: customColors().grey600,
-                    ),
+                    const Icon(Icons.calendar_view_day_rounded)
+                    // Image.asset(
+                    //   AssetIcons.calendarIcon,
+                    //   height: 24,
+                    //   width: 24,
+                    //   color: customColors().grey600,
+                    // ),
                   ],
                 ),
               ),
