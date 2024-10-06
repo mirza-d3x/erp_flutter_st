@@ -9,6 +9,7 @@ class ModelTheme {
   final Color fontSecondary;
   final Color fontTertiary;
   final Color primary;
+  final Color cardPrimary;
   final Color accent;
   final Color success;
   final Color danger;
@@ -42,11 +43,20 @@ class ModelTheme {
   final Color grey;
   final Color grey900;
   final Color grey300;
+  final Color grey100;
   final Color grey400;
+  final Color grey500;
   final Color grey600;
+  final Color lightBlue;
+  final Color blue200;
+  final Color bluePrimary;
 
   ModelTheme(
     this.mode, {
+    required this.blue200,
+    required this.grey100,
+    required this.grey500,
+    required this.bluePrimary,
     required this.backgroundPrimary,
     required this.backgroundSecondary,
     required this.backgroundTertiary,
@@ -88,7 +98,109 @@ class ModelTheme {
     required this.grey300,
     required this.grey400,
     required this.grey600,
+    required this.lightBlue,
+    required this.cardPrimary,
   });
+
+  ModelTheme copyWith({
+    Color? backgroundPrimary,
+    Color? backgroundSecondary,
+    Color? backgroundTertiary,
+    Color? fontPrimary,
+    Color? fontSecondary,
+    Color? fontTertiary,
+    Color? primary,
+    Color? cardPrimary,
+    Color? accent,
+    Color? success,
+    Color? danger,
+    Color? warning,
+    Color? info,
+    Color? green1,
+    Color? green2,
+    Color? green3,
+    Color? green4,
+    Color? red1,
+    Color? red2,
+    Color? red3,
+    Color? mattPurple,
+    Color? ultraviolet,
+    Color? dodgerBlue,
+    Color? dividentColor,
+    Color? crisps,
+    Color? secretGarden,
+    Color? carnationRed,
+    Color? islandAqua,
+    Color? pacificBlue,
+    Color? silverDust,
+    Color? wTokenBackground,
+    Color? wTokenFontColor,
+    Color? pTokenBackground,
+    Color? pTokenFontColor,
+    Color? adBackground,
+    Color? green600,
+    Color? peachBackgrond,
+    Color? grey,
+    Color? grey900,
+    Color? grey300,
+    Color? grey100,
+    Color? grey400,
+    Color? grey500,
+    Color? grey600,
+    Color? lightBlue,
+    Color? bluePrimary,
+  }) {
+    return ModelTheme(
+      mode,
+      backgroundPrimary: backgroundPrimary ?? this.backgroundPrimary,
+      backgroundSecondary: backgroundSecondary ?? this.backgroundSecondary,
+      backgroundTertiary: backgroundTertiary ?? this.backgroundTertiary,
+      fontPrimary: fontPrimary ?? this.fontPrimary,
+      fontSecondary: fontSecondary ?? this.fontSecondary,
+      fontTertiary: fontTertiary ?? this.fontTertiary,
+      primary: primary ?? this.primary,
+      accent: accent ?? this.accent,
+      success: success ?? this.success,
+      danger: danger ?? this.danger,
+      warning: warning ?? this.warning,
+      info: info ?? this.info,
+      green1: green1 ?? this.green1,
+      green2: green2 ?? this.green2,
+      green3: green3 ?? this.green3,
+      green4: green4 ?? this.green4,
+      red1: red1 ?? this.red1,
+      red2: red2 ?? this.red2,
+      red3: red3 ?? this.red3,
+      mattPurple: mattPurple ?? this.mattPurple,
+      ultraviolet: ultraviolet ?? this.ultraviolet,
+      dodgerBlue: dodgerBlue ?? this.dodgerBlue,
+      dividentColor: dividentColor ?? this.dividentColor,
+      crisps: crisps ?? this.crisps,
+      secretGarden: secretGarden ?? this.secretGarden,
+      carnationRed: carnationRed ?? this.carnationRed,
+      islandAqua: islandAqua ?? this.islandAqua,
+      pacificBlue: pacificBlue ?? this.pacificBlue,
+      silverDust: silverDust ?? this.silverDust,
+      wTokenBackground: wTokenBackground ?? this.wTokenBackground,
+      wTokenFontColor: wTokenFontColor ?? this.wTokenFontColor,
+      pTokenBackground: pTokenBackground ?? this.pTokenBackground,
+      pTokenFontColor: pTokenFontColor ?? this.pTokenFontColor,
+      green600: green600 ?? this.green600,
+      adBackground: adBackground ?? this.adBackground,
+      peachBackgrond: peachBackgrond ?? this.peachBackgrond,
+      grey: grey ?? this.grey,
+      grey900: grey900 ?? this.grey900,
+      grey300: grey300 ?? this.grey300,
+      grey400: grey400 ?? this.grey400,
+      grey600: grey600 ?? this.grey600,
+      lightBlue: lightBlue ?? this.lightBlue,
+      bluePrimary: bluePrimary ?? this.bluePrimary,
+      grey100: grey100 ?? this.grey100,
+      grey500: grey500 ?? this.grey500,
+      blue200: blue200,
+      cardPrimary: this.cardPrimary,
+    );
+  }
 }
 
 ModelTheme lightModel = ModelTheme(
@@ -134,6 +246,12 @@ ModelTheme lightModel = ModelTheme(
   grey300: const Color(0xffD1D5DB),
   grey400: const Color(0xff9CA3AF),
   grey600: const Color(0xff4B5563),
+  lightBlue: const Color(0xffEAF7FF),
+  bluePrimary: const Color(0xff1D689B),
+  grey100: const Color(0xFFF3F4F6),
+  grey500: const Color(0xff6B7280),
+  blue200: const Color(0xFFC3DDFD),
+  cardPrimary: const Color(0xffEAF7FF),
 );
 
 ModelTheme darkModel = ModelTheme(
@@ -179,4 +297,10 @@ ModelTheme darkModel = ModelTheme(
   grey300: const Color(0xffD1D5DB),
   grey400: const Color(0xff9CA3AF),
   grey600: const Color(0xff4B5563),
+  lightBlue: const Color(0xffEAF7FF),
+  bluePrimary: const Color(0xff1D689B),
+  grey100: const Color(0xFFF3F4F6),
+  grey500: const Color(0xff6B7280),
+  blue200: const Color(0xFFC3DDFD),
+  cardPrimary: const Color(0xffEAF7FF),
 );

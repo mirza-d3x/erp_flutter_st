@@ -28,13 +28,17 @@ enum FontColor {
   buttonDisable,
   grey900,
   grey600,
+  grey500,
   grey200,
+  bluePrimary
 }
 
 enum FontStyle {
   headLineSmall,
+  headLineMedium,
   headLineLarge,
   titleMedium,
+  titleMediumWD,
   headerLRegular,
   headerMBold,
   headerMSemiBold,
@@ -49,7 +53,8 @@ enum FontStyle {
   bodyLSemiBold,
   bodyLregular,
   bodyMBold,
-  bodyMSemiBold,
+  bodyMedium,
+  labelMedium,
   bodyMregular,
   bodySBold,
   bodySSemiBold,
@@ -63,10 +68,11 @@ enum FontStyle {
   bodySmallUnderLined,
   bodySmallSemiBold,
   titleSmallSemiBold,
-  titleMediumSemiBold,
+  labelLarge,
   titleleLargeMedBold,
   navigationLabelSelected,
-  navigationLabelUnselected
+  navigationLabelUnselected,
+  labelSmall
 }
 
 ModelTheme customColors() {
@@ -75,6 +81,13 @@ ModelTheme customColors() {
 
 TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
   switch (fontStyle) {
+    case FontStyle.headLineMedium:
+      return TextStyle(
+        fontSize: 28,
+        color: getFontColor(color),
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w400,
+      );
     case FontStyle.titleSmall:
       return TextStyle(
         fontSize: 14,
@@ -125,12 +138,26 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
         fontFamily: 'Roboto',
         color: getFontColor(color),
       );
+    case FontStyle.bodyMedium:
+      return TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        fontFamily: 'Roboto',
+        color: getFontColor(color),
+      );
     case FontStyle.titleMedium:
       return TextStyle(
-        fontSize: 32,
+        fontSize: 16,
         color: getFontColor(color),
         fontFamily: 'Roboto',
-        fontWeight: FontWeight.w400,
+        fontWeight: FontWeight.w500,
+      );
+    case FontStyle.titleMediumWD:
+      return TextStyle(
+        fontSize: 16,
+        color: getFontColor(color),
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w700,
       );
     case FontStyle.titleSmallSemiBold:
       return TextStyle(
@@ -138,7 +165,7 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           color: getFontColor(color),
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w500);
-    case FontStyle.titleMediumSemiBold:
+    case FontStyle.labelLarge:
       return TextStyle(
           fontSize: 14,
           color: getFontColor(color),
@@ -150,7 +177,7 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           color: getFontColor(color),
           letterSpacing: 0.5,
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w600);
+          fontWeight: FontWeight.w400);
     case FontStyle.headerMBold:
       return TextStyle(
           fontSize: 24,
@@ -241,13 +268,13 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
           fontWeight: FontWeight.w700);
-    case FontStyle.bodyMSemiBold:
+    case FontStyle.labelMedium:
       return TextStyle(
           fontSize: 12,
           color: getFontColor(color),
           letterSpacing: 0.3,
           fontFamily: 'Roboto',
-          fontWeight: FontWeight.w600);
+          fontWeight: FontWeight.w500);
     case FontStyle.bodyMregular:
       return TextStyle(
           fontSize: 12,
@@ -320,6 +347,14 @@ TextStyle customTextStyle({required FontStyle fontStyle, FontColor? color}) {
         fontFamily: 'Roboto',
         fontWeight: FontWeight.w500,
       );
+    case FontStyle.labelSmall:
+      return TextStyle(
+        fontSize: 11,
+        color: getFontColor(color),
+        letterSpacing: 0.3,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w500,
+      );
   }
 }
 
@@ -327,6 +362,8 @@ getFontColor(FontColor? color) {
   switch (color) {
     case FontColor.grey900:
       return const Color(0xff111928);
+    case FontColor.grey500:
+      return const Color(0xff6B7280);
     case FontColor.grey600:
       return const Color(0xff4B5563);
     case FontColor.grey200:
@@ -377,6 +414,8 @@ getFontColor(FontColor? color) {
       return CustomTheme.modelTheme.wTokenFontColor;
     case FontColor.buttonDisable:
       return CustomTheme.modelTheme.pTokenBackground;
+    case FontColor.bluePrimary:
+      return CustomTheme.modelTheme.bluePrimary;
     default:
       return CustomTheme.modelTheme.fontSecondary;
   }
