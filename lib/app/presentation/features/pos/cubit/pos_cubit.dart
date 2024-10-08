@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/services/service_locator.dart';

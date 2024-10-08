@@ -109,6 +109,23 @@ class ApiController implements ApiServices {
       rethrow;
     }
   }
+
+  @override
+  Future<List<ModuleResponse>> sendMenuModuleRequest(
+      {required String userName, required String branch}) async {
+    try {
+      var res = await _client
+          .get(Uri.parse('$_baseUrl${'${Endpoints.webMenuModule}ADMIN/HO'}'));
+      consoleLog("Request: $_baseUrl${Endpoints.productModules}");
+      consoleLog("Menu Module: ${res.body}");
+      final response = MenuModule.fromJson(_handleResponse(res));
+      return response.response;
+    } catch (error, stackTrace) {
+      consoleLog("Error while Sending Menu Module: ",
+          error: error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
 }
 
 Map<String, dynamic> _handleResponse(http.Response response) {

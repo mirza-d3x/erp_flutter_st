@@ -27,6 +27,20 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
+  @override
+  Route createDashBoardPageRoute() {
+    return CustomRoute(
+      builder: DashboardScreenRouteBuilder(_serviceLocator),
+    );
+  }
+
+  @override
+  Route createRetailsPageRoute() {
+    return CustomRoute(
+      builder: RetailsScreenRouteBuilder(_serviceLocator),
+    );
+  }
+
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {
 //     return CustomRoute(

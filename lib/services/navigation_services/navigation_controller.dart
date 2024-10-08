@@ -18,10 +18,20 @@ final class NavigationController {
   }
 
   void openPosPageRoute(BuildContext context) {
-    Navigator.of(context).pushNamedAndRemoveUntil(
+    Navigator.of(context).pushNamed(
       RouteNames.pos,
+    );
+  }
+
+  void openDashboardPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      RouteNames.dashboard,
       (route) => false,
     );
+  }
+
+  void openRetailsPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamed(RouteNames.retails);
   }
   // void createProductsPageRoute(BuildContext context, ProductModel model) {
   //   Navigator.of(context).pushNamed(RouteNames.products, arguments: model);
