@@ -14,6 +14,8 @@ Route<dynamic>? Function(RouteSettings)? onGenerateAppRoute(
         return routesFactory.createDashBoardPageRoute();
       case RouteNames.retails:
         return routesFactory.createRetailsPageRoute();
+      case RouteNames.menuDetails:
+        return routesFactory.createMenuDetailsPageRoute();
 
       //   return routesFactory.createCartPageRoute();
       // case RouteNames.products:

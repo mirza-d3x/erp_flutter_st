@@ -33,6 +33,10 @@ final class NavigationController {
   void openRetailsPageRoute(BuildContext context) {
     Navigator.of(context).pushNamed(RouteNames.retails);
   }
+
+  void openMenuDetailsPageRoute(BuildContext context) {
+    Navigator.of(context).pushNamed(RouteNames.menuDetails);
+  }
   // void createProductsPageRoute(BuildContext context, ProductModel model) {
   //   Navigator.of(context).pushNamed(RouteNames.products, arguments: model);
   // }

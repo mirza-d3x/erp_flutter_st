@@ -4,4 +4,5 @@ class RouteNames {
   static const String pos = "/pos";
   static const String dashboard = "/dasgboard";
   static const String retails = "/retails";
+  static const String menuDetails = "/menuDetails";
 }

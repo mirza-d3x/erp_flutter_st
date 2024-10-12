@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/menu_module_model.dart';
+import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 
 part 'retails_state.dart';
@@ -27,7 +28,7 @@ class RetailsCubit extends Cubit<RetailState> {
 
       // Filter and group logic
       retailMenuSubModules = _filterAndGroupModules(menuModule);
-
+      UserController().retailMenuSubModules = retailMenuSubModules;
       // Emit a state with the new data if needed
       emit(RetailsLoaded(retailMenuSubModules));
     } catch (error) {
@@ -45,8 +46,7 @@ class RetailsCubit extends Cubit<RetailState> {
 
     for (var module in retailModules) {
       if (subModuleGroupsMap.containsKey(module.menuSubModule)) {
-        subModuleGroupsMap[module.menuSubModule]!
-            .add(module.menuCaptionEng);
+        subModuleGroupsMap[module.menuSubModule]!.add(module.menuCaptionEng);
       } else {
         subModuleGroupsMap[module.menuSubModule] = [module.menuCaptionEng];
       }

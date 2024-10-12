@@ -41,6 +41,13 @@ final class AppRoutesFactory implements RoutesFactory {
     );
   }
 
+  @override
+  Route createMenuDetailsPageRoute() {
+    return CustomRoute(
+      builder: MenuDetailsRouteBuilder(_serviceLocator),
+    );
+  }
+
 //   @override
 //   Route createProductsPageRoute(ProductModel model) {
 //     return CustomRoute(

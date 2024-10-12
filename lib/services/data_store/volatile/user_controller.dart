@@ -5,6 +5,7 @@ final class UserController {
 
   String userEmail = "";
   String userPhone = "";
+  Map<String, List<String>> retailMenuSubModules = {};
 
   void dispose() {
     userEmail = "";

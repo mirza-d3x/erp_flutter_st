@@ -1,5 +1,6 @@
 import 'package:erp_mobile/app/presentation/features/retails/cubit/retails_cubit.dart';
 import 'package:erp_mobile/app/widgets/dashboard_app_bar.dart';
+import 'package:erp_mobile/app_page_injectable.dart';
 import 'package:erp_mobile/constants/assets/icon_assets.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:erp_mobile/utils/console_log.dart';
@@ -41,6 +42,10 @@ class RetailsScreen extends StatelessWidget {
                           menuOptions: menuOptions, // Dynamic options
                           onSelected: (value) {
                             consoleLog('Selected: $value');
+                            if (value == 'Sale') {
+                              context.navigationService
+                                  .openMenuDetailsPageRoute(context);
+                            }
                           },
                         );
                       }).toList(),
