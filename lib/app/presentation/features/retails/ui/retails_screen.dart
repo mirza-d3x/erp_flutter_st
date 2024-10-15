@@ -179,9 +179,9 @@ class RetailsScreen extends StatelessWidget {
           } else if (state is RetaislError) {
             return Center(child: Text('Error loading data: ${state.error}'));
           }
-
-          // Show loading indicator while waiting for data
-          return const Center(child: CircularProgressIndicator());
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         },
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:erp_mobile/app/presentation/features/login/cubit/login_cubit.dart';
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_dropdown.dart';
+import 'package:erp_mobile/app/widgets/custom_focus_text_field.dart';
 import 'package:erp_mobile/app/widgets/custom_text_field.dart';
 import 'package:erp_mobile/app/widgets/snackbar/custom_snackbar.dart';
 import 'package:erp_mobile/constants/assets/image_assets.dart';
@@ -68,7 +69,7 @@ class LoginScreen extends StatelessWidget {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      CustomTextField(
+                                      CustomFocusTextField(
                                         controller: cubit.userNameController,
                                         labelText: "Username",
                                         focusNode: cubit.userNameFocusNode,
@@ -86,7 +87,7 @@ class LoginScreen extends StatelessWidget {
                                           opacity: state.isPasswordFieldEnabled
                                               ? 1
                                               : 0.5,
-                                          child: CustomTextField(
+                                          child: CustomFocusTextField(
                                             controller:
                                                 cubit.passwordController,
                                             labelText: "Password",
@@ -174,7 +175,7 @@ class LoginScreen extends StatelessWidget {
                                 child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    CustomTextField(
+                                    CustomFocusTextField(
                                       controller: cubit.userNameController,
                                       labelText: "Username",
                                       focusNode: cubit.userNameFocusNode,
@@ -191,7 +192,7 @@ class LoginScreen extends StatelessWidget {
                                         opacity: state.isPasswordFieldEnabled
                                             ? 1
                                             : 0.5,
-                                        child: CustomTextField(
+                                        child: CustomFocusTextField(
                                           controller: cubit.passwordController,
                                           labelText: "Password",
                                           textInputAction: TextInputAction.next,

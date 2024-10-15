@@ -18,7 +18,6 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 361.0,
       height: 50.0,
       child: ElevatedButton(
         onPressed: onPressed,
@@ -32,7 +31,7 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 9.5),
+          padding: const EdgeInsets.symmetric(vertical: 9.5),
           child: isLoading
               ? const SizedBox(
                   width: 24.0,

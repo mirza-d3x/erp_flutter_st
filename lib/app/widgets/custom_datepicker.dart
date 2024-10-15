@@ -101,7 +101,7 @@ class CustomDatePickerState extends State<CustomDatePicker> {
                         color: FontColor.grey600,
                       ),
                     ),
-                    const Icon(Icons.calendar_view_day_rounded)
+                    const Icon(Icons.date_range)
                     // Image.asset(
                     //   AssetIcons.calendarIcon,
                     //   height: 24,
