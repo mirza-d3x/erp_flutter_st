@@ -163,13 +163,14 @@ class DrawerWidget extends StatelessWidget {
     return SafeArea(
       child: SizedBox(
         height: size.height,
-        // width: size.width / 3,
         child: BlocBuilder<PosCubit, PosState>(
           builder: (context, state) {
             switch (state) {
               case PosInitial():
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Center(
+                  child: CircularProgressIndicator(
+                    color: customColors().bluePrimary,
+                  ),
                 );
               case PosLoaded():
                 return SingleChildScrollView(
