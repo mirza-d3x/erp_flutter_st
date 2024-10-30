@@ -2,7 +2,9 @@ import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
 
 class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const DashboardAppBar({super.key});
+  const DashboardAppBar({super.key, this.withDrawer = false, this.onDrawer});
+  final bool withDrawer;
+  final Function()? onDrawer;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +71,15 @@ class DashboardAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
         ),
+        withDrawer
+            ? IconButton(
+                onPressed: onDrawer,
+                icon: const Icon(
+                  Icons.menu,
+                  color: Colors.white,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }

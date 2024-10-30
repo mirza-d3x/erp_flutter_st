@@ -8,3 +8,10 @@ sealed class PosState extends Equatable {
 }
 
 final class PosInitial extends PosState {}
+
+final class PosLoaded extends PosState {
+  final List<KaratRateResponse> karatRate;
+  final List<String> salesPersonsList;
+
+  const PosLoaded({required this.karatRate, required this.salesPersonsList});
+}

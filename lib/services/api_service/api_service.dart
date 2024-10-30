@@ -12,4 +12,7 @@ abstract interface class ApiServices {
   Future<ProductModulesModel> sendProductModuleModelRequest();
   Future<List<ModuleResponse>> sendMenuModuleRequest(
       {required String userName, required String branch});
+  Future<List<KaratRateResponse>> sendBranchKaratRateRequest(
+      {required String branchName});
+  Future<List<SalesPersons>> sendSalesPersonRequet({required String branch});
 }

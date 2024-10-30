@@ -6,5 +6,8 @@ class Endpoints {
   static const String branchMaster = 'BranchMaster/';
   static const String productModules =
       'SuntechProdModuleMaster/GetProductModuleList/';
-      static const String webMenuModule = 'WebMenuModuleWise/Retail/';
+  static const String webMenuModule = 'WebMenuModuleWise/Retail/';
+  static const String branchKaratRate = 'BranchKaratRate/';
+  static const String salesPerson =
+      'SalesPersonMaster/GetSalespersonMasterList/';
 }

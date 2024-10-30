@@ -126,6 +126,39 @@ class ApiController implements ApiServices {
       rethrow;
     }
   }
+
+  @override
+  Future<List<KaratRateResponse>> sendBranchKaratRateRequest(
+      {required String branchName}) async {
+    try {
+      var res = await _client.get(Uri.parse(
+          '$_baseUrl${'${Endpoints.branchKaratRate}$branchName/HO'}'));
+      consoleLog("Request: $_baseUrl${Endpoints.productModules}");
+      consoleLog("Menu Module: ${res.body}");
+      final response = BranchKaratRate.fromJson(_handleResponse(res));
+      return response.response;
+    } catch (error, stackTrace) {
+      consoleLog("Error while Sending Branch Karat Rate Request: ",
+          error: error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<SalesPersons>> sendSalesPersonRequet(
+      {required String branch}) async {
+    try {
+      var res = await _client
+          .get(Uri.parse('$_baseUrl${Endpoints.salesPerson}/$branch'));
+      consoleLog("Request: $_baseUrl${Endpoints.salesPerson}");
+      consoleLog("Sales Person Master Response: ${res.body}");
+      return SalesPersonResponse.fromJson(jsonDecode(res.body)).response;
+    } catch (error, stackTrace) {
+      consoleLog("Error while Sending Sales Person Request: ",
+          error: error, stackTrace: stackTrace);
+      return [];
+    }
+  }
 }
 
 Map<String, dynamic> _handleResponse(http.Response response) {

@@ -2,7 +2,6 @@ import 'package:erp_mobile/app/presentation/features/login/cubit/login_cubit.dar
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_dropdown.dart';
 import 'package:erp_mobile/app/widgets/custom_focus_text_field.dart';
-import 'package:erp_mobile/app/widgets/custom_text_field.dart';
 import 'package:erp_mobile/app/widgets/snackbar/custom_snackbar.dart';
 import 'package:erp_mobile/constants/assets/image_assets.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
