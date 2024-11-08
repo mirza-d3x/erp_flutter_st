@@ -1,5 +1,4 @@
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
-import 'package:erp_mobile/app/presentation/features/pos/ui/pos_screen.dart';
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_datepicker.dart';
 import 'package:erp_mobile/app/widgets/custom_searchable_dropdown_picker.dart';
@@ -15,6 +14,7 @@ class VoucherDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<PosCubit>(context);
     return Card(
       child: BlocBuilder<PosCubit, PosState>(
         builder: (context, state) {
@@ -41,11 +41,11 @@ class VoucherDetails extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: AbsorbPointer(
-                          absorbing: true,
+                          absorbing: false,
                           child: CustomElevatedButton(
                             text: 'New',
                             onPressed: () {
-                              showSalesDetailsDialog(context);
+                              cubit.openDialog(context);
                             },
                           ),
                         ),

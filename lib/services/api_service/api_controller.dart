@@ -159,6 +159,26 @@ class ApiController implements ApiServices {
       return [];
     }
   }
+
+  Future<RetailSalesStockValidation> sendRetailsSalesStockValidationRequest({
+    required String stockCode,
+    required String branch,
+    required String voucherType,
+    required String voucherDate,
+    required String user,
+  }) async {
+    try {
+      var res = await _client.get(Uri.parse(
+          '$_baseUrl${Endpoints.retailsStockValidation}/$stockCode/$branch/$voucherType/$user/%27%27/%27%27/$voucherDate/$branch'));
+      consoleLog("Request: $_baseUrl${Endpoints.salesPerson}");
+      consoleLog("Sales Person Master Response: ${res.body}");
+      return RetailSalesStockValidation.fromJson(jsonDecode(res.body));
+    } catch (error, stackTrace) {
+      consoleLog("Error while Sending Sales Person Request: ",
+          error: error, stackTrace: stackTrace);
+      rethrow;
+    }
+  }
 }
 
 Map<String, dynamic> _handleResponse(http.Response response) {

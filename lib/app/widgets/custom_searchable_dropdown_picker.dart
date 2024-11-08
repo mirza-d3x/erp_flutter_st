@@ -84,72 +84,100 @@ class CustomSearchableDropdownPickerState
     var offset = renderBox.localToGlobal(Offset.zero);
 
     return OverlayEntry(
-      builder: (context) => Positioned(
-        left: offset.dx,
-        top: offset.dy + size.height,
-        width: size.width,
-        child: Material(
-          elevation: 4,
-          borderRadius: BorderRadius.circular(4),
-          child: Container(
-            decoration: BoxDecoration(
-              color: customColors().grey100,
-              borderRadius: BorderRadius.circular(4),
-              border: Border.all(color: Colors.grey),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: TextField(
-                    controller: _searchController,
-                    decoration: InputDecoration(
-                      hintText: 'Search...',
-                      prefixIcon: const Icon(Icons.search),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                    ),
-                  ),
-                ),
-                if (_filteredItems.isNotEmpty)
-                  ..._filteredItems.map((item) {
-                    return ListTile(
-                      title: Text(
-                        item,
-                        style: TextStyle(
-                          color: customColors().grey900,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'Roboto',
-                        ),
-                      ),
-                      onTap: () {
-                        setState(() {
-                          _selectedItem = item;
-                          _isDropdownOpen = false;
-                          _searchController.clear();
-                        });
-                        _removeOverlay();
-                        if (widget.onChanged != null) {
-                          widget.onChanged!(item);
-                        }
-                      },
-                    );
-                  })
-                else
-                  const Padding(
-                    padding: EdgeInsets.all(8),
-                    child: Text('No items found'),
-                  ),
-              ],
+      builder: (context) => Stack(
+        children: [
+          // Detects taps outside the dropdown to close it
+          GestureDetector(
+            onTap: () {
+              _removeOverlay();
+              setState(() {
+                _isDropdownOpen = false;
+              });
+            },
+            behavior: HitTestBehavior.translucent,
+            child: Container(
+              color: Colors.transparent, // Makes the entire screen tappable
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
             ),
           ),
-        ),
+          Positioned(
+            left: offset.dx,
+            top: offset.dy + size.height,
+            width: size.width,
+            child: Material(
+              elevation: 4,
+              borderRadius: BorderRadius.circular(4),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: customColors().grey100,
+                  borderRadius: BorderRadius.circular(4),
+                  border: Border.all(color: Colors.grey),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextField(
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          hintText: 'Search...',
+                          prefixIcon: const Icon(Icons.search),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide.none,
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[200],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 200, // Set a maximum height for the dropdown list
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: _filteredItems.isNotEmpty
+                              ? _filteredItems.map((item) {
+                                  return ListTile(
+                                    title: Text(
+                                      item,
+                                      style: TextStyle(
+                                        color: customColors().grey900,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: 'Roboto',
+                                      ),
+                                    ),
+                                    onTap: () {
+                                      setState(() {
+                                        _selectedItem = item;
+                                        _isDropdownOpen = false;
+                                        _searchController.clear();
+                                      });
+                                      _removeOverlay();
+                                      if (widget.onChanged != null) {
+                                        widget.onChanged!(item);
+                                      }
+                                    },
+                                  );
+                                }).toList()
+                              : [
+                                  const Padding(
+                                    padding: EdgeInsets.all(8),
+                                    child: Text('No items found'),
+                                  ),
+                                ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

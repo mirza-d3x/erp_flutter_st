@@ -23,6 +23,7 @@ class CustomTextField extends StatefulWidget {
   final int? maxLines;
   final int? minLines;
   final String? Function(String?)? validator;
+  final Function()? onEditingComplete;
 
   const CustomTextField({
     required this.controller,
@@ -47,6 +48,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLines = 1,
     this.minLines = 1,
     this.validator,
+    this.onEditingComplete,
   });
 
   @override
@@ -102,6 +104,7 @@ class CustomTextFieldState extends State<CustomTextField> {
           // ),
         ),
         child: TextFormField(
+          onEditingComplete: widget.onEditingComplete,
           validator: _validate,
           maxLines: widget.maxLines,
           minLines: widget.minLines,
@@ -115,11 +118,13 @@ class CustomTextFieldState extends State<CustomTextField> {
           cursorHeight: 20,
           cursorOpacityAnimates: true,
           decoration: InputDecoration(
-            floatingLabelBehavior: FloatingLabelBehavior.auto,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
             filled: true,
             fillColor: Colors.white,
             hintText: 'Enter ${widget.labelText}',
-            label: Text(widget.labelText ?? ''), labelStyle: widget.labelStyle,
+            labelText: widget
+                .labelText, // Use labelText directly instead of label widget
+            labelStyle: widget.labelStyle,
             hintStyle: TextStyle(
               fontFamily: 'Nato Sans',
               color:

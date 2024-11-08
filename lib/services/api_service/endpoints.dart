@@ -10,4 +10,5 @@ class Endpoints {
   static const String branchKaratRate = 'BranchKaratRate/';
   static const String salesPerson =
       'SalesPersonMaster/GetSalespersonMasterList/';
+  static const String retailsStockValidation = 'RetailSalesStockValidation/';
 }

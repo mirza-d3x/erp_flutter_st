@@ -1,5 +1,4 @@
 import 'package:erp_mobile/app/presentation/features/pos/components/karat_rate_table.dart';
-import 'package:erp_mobile/app/presentation/features/pos/components/sales_details_dialog.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/total_details_panel.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/voucher_details.dart';
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
@@ -45,7 +44,7 @@ class PosScreenState extends State<PosScreen>
     return BlocListener<PosCubit, PosState>(
       listener: (context, state) {
         if (state is PosLoaded) {
-          showSalesDetailsDialog(context);
+          cubit.openDialog(context);
         }
       },
       child: Scaffold(
@@ -215,11 +214,14 @@ class DrawerWidget extends StatelessWidget {
   }
 }
 
-void showSalesDetailsDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) {
-      return const SalesDetailsDialog();
-    },
-  );
-}
+// void showSalesDetailsDialog(BuildContext context,) {
+//   showDialog(
+//     context: context,
+//     builder: (context) {
+//       return BlocProvider(
+//         create: (context) => PosCubit(serviceLocator),
+//         child: const SalesDetailsDialog(),
+//       );
+//     },
+//   );
+// }
