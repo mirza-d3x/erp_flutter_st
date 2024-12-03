@@ -121,7 +121,7 @@ class CustomTextFieldState extends State<CustomTextField> {
             floatingLabelBehavior: FloatingLabelBehavior.always,
             filled: true,
             fillColor: Colors.white,
-            hintText: 'Enter ${widget.labelText}',
+            hintText: '${widget.labelText}',
             labelText: widget
                 .labelText, // Use labelText directly instead of label widget
             labelStyle: widget.labelStyle,
