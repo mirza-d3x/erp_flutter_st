@@ -40,8 +40,8 @@ class SalesPersons {
 
   final String salespersonCode;
   final String description;
-  final int commission;
-  final int mid;
+  final num commission;
+  final num mid;
   final String salesmanImagePath;
   final String salesmanImage;
   final DateTime? systemDate;
@@ -50,7 +50,7 @@ class SalesPersons {
   final String empmstCode;
   final bool active;
   final String spaccode;
-  final int commissiondia;
+  final num commissiondia;
 
   factory SalesPersons.fromJson(Map<String, dynamic> json) {
     return SalesPersons(
