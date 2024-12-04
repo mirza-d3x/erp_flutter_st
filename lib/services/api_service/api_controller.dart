@@ -36,9 +36,9 @@ class ApiController implements ApiServices {
     try {
       var res = await _client.get(Uri.parse(
           '$_baseUrl${Endpoints.validatePassword}strusername=$userName&strPassword=$password'));
-      consoleLog(
-          "Request: '$_baseUrl${Endpoints.validatePassword}strusername=$userName&strPassword=$password'");
-      consoleLog("Verify User Response: ${res.body}");
+      // consoleLog(
+      //     "Request: '$_baseUrl${Endpoints.validatePassword}strusername=$userName&strPassword=$password'");
+      // consoleLog("Verify User Response: ${res.body}");
       return VerifyUser.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
       consoleLog("Error while Verify UserName: $userName",
@@ -52,8 +52,8 @@ class ApiController implements ApiServices {
     try {
       var res = await _client
           .get(Uri.parse(_baseUrl + Endpoints.userBranches + userName));
-      consoleLog("Request: $_baseUrl${Endpoints.userBranches}$userName");
-      consoleLog("Verify User Branches Response: ${res.body}");
+      // consoleLog("Request: $_baseUrl${Endpoints.userBranches}$userName");
+      // consoleLog("Verify User Branches Response: ${res.body}");
       return VerifyUser.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
       consoleLog("Error while Sending User branches: $userName",
@@ -68,9 +68,9 @@ class ApiController implements ApiServices {
     try {
       var res = await _client.get(Uri.parse(
           '$_baseUrl${Endpoints.financialYear}$branch/$userName/$branch'));
-      consoleLog(
-          "Request:  $_baseUrl${Endpoints.financialYear}$branch/$userName/$branch");
-      consoleLog("Verify User Financial Year Response: ${res.body}");
+      // consoleLog(
+      //     "Request:  $_baseUrl${Endpoints.financialYear}$branch/$userName/$branch");
+      // consoleLog("Verify User Financial Year Response: ${res.body}");
       return VerifyUser.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
       consoleLog("Error while Financial Years User branches: $userName",
@@ -85,8 +85,8 @@ class ApiController implements ApiServices {
     try {
       var res = await _client
           .get(Uri.parse('$_baseUrl${Endpoints.branchMaster + branchName}'));
-      consoleLog("Request: $_baseUrl${Endpoints.branchMaster}$branchName");
-      consoleLog("Verify User Branche Master Response: ${res.body}");
+      // consoleLog("Request: $_baseUrl${Endpoints.branchMaster}$branchName");
+      // consoleLog("Verify User Branche Master Response: ${res.body}");
       return VerifyUser.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
       consoleLog("Error while Sending User branche Master: $branchName",
@@ -100,8 +100,8 @@ class ApiController implements ApiServices {
     try {
       var res =
           await _client.get(Uri.parse('$_baseUrl${Endpoints.productModules}'));
-      consoleLog("Request: $_baseUrl${Endpoints.productModules}");
-      consoleLog("Verify User Branche Master Response: ${res.body}");
+      // consoleLog("Request: $_baseUrl${Endpoints.productModules}");
+      // consoleLog("Verify User Branche Master Response: ${res.body}");
       return ProductModulesModel.fromJson(_handleResponse(res));
     } catch (error, stackTrace) {
       consoleLog("Error while Sending Product Modules: ",
@@ -133,8 +133,8 @@ class ApiController implements ApiServices {
     try {
       var res = await _client.get(Uri.parse(
           '$_baseUrl${'${Endpoints.branchKaratRate}$branchName/HO'}'));
-      consoleLog("Request: $_baseUrl${Endpoints.productModules}");
-      consoleLog("Menu Module: ${res.body}");
+      // consoleLog("Request: $_baseUrl${Endpoints.productModules}");
+      // consoleLog("Menu Module: ${res.body}");
       final response = BranchKaratRate.fromJson(_handleResponse(res));
       return response.response;
     } catch (error, stackTrace) {
@@ -150,8 +150,8 @@ class ApiController implements ApiServices {
     try {
       var res = await _client
           .get(Uri.parse('$_baseUrl${Endpoints.salesPerson}/$branch'));
-      consoleLog("Request: $_baseUrl${Endpoints.salesPerson}");
-      consoleLog("Sales Person Master Response: ${res.body}");
+      // consoleLog("Request: $_baseUrl${Endpoints.salesPerson}");
+      // consoleLog("Sales Person Master Response: ${res.body}");
       return SalesPersonResponse.fromJson(jsonDecode(res.body)).response;
     } catch (error, stackTrace) {
       consoleLog("Error while Sending Sales Person Request: ",
@@ -168,9 +168,10 @@ class ApiController implements ApiServices {
     required String user,
   }) async {
     try {
-      var res = await _client.get(Uri.parse(
-          '$_baseUrl${Endpoints.retailsStockValidation}/$stockCode/$branch/$voucherType/$user/%27%27/%27%27/$voucherDate/$branch'));
-      consoleLog("Request: $_baseUrl${Endpoints.salesPerson}");
+      final String url =
+          '$_baseUrl${Endpoints.retailsStockValidation}$stockCode/$branch/$voucherType/$user/%27%27/%27%27/$voucherDate/$branch';
+      var res = await _client.get(Uri.parse(url));
+      consoleLog("Request: $url");
       consoleLog("Sales Person Master Response: ${res.body}");
       return RetailSalesStockValidation.fromJson(jsonDecode(res.body));
     } catch (error, stackTrace) {

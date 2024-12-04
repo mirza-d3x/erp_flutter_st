@@ -27,11 +27,12 @@ class DrawerWidget extends StatelessWidget {
                   children: [
                     SingleChildScrollView(
                       child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             padding: const EdgeInsets.all(10),
                             height: size.height * .12,
-                            width: size.width / 4,
+                            width: size.width / 3.5,
                             color: customColors().grey300,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
