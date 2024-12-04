@@ -12,6 +12,13 @@
                 "dev"
             ]
         },
+        {
+            "name": "ERP_APP-DEV-Debug-iOS",
+            "request": "launch",
+            "program": "lib/main_dev.dart",
+            "type": "dart",
+            "flutterMode": "debug",
+        },
         // {
         //     "name": "ERP_APP-DEV-Profile",
         //     "request": "launch",
