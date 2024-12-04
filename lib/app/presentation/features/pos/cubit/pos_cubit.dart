@@ -23,6 +23,7 @@ class PosCubit extends Cubit<PosState> {
   late final FocusNode makingAmountFocus;
   late final FocusNode makingRateFocusNode;
   late final FocusNode grossWtFocusNode;
+  late final FocusNode netAmountFocusNode;
 
   // Voucher Details
   late final TextEditingController voucherName;
@@ -79,6 +80,7 @@ class PosCubit extends Cubit<PosState> {
     makingAmountFocus = FocusNode();
     makingRateFocusNode = FocusNode();
     grossWtFocusNode = FocusNode();
+    netAmountFocusNode = FocusNode();
     voucherName = TextEditingController(text: 'POS');
     voucherNo = TextEditingController(text: '1');
     currency = TextEditingController(text: 'AED');
@@ -119,7 +121,7 @@ class PosCubit extends Cubit<PosState> {
     tagDetailsController = TextEditingController();
     rateController = TextEditingController();
     amountController = TextEditingController();
-    _getKarateRateData(); 
+    _getKarateRateData();
   }
 
   _getKarateRateData() async {
@@ -153,11 +155,8 @@ class PosCubit extends Cubit<PosState> {
       purityController.text = stockData.stockInfo?.purity.toString() ?? '0.00';
       metalRateController.text =
           stockData.stockInfo?.metalRate.toString() ?? '0.00';
-      grossWtController.text =
-          grossWtController.text.isEmpty ? '0.00' : grossWtController.text;
-      makingRateController.text = makingRateController.text.isEmpty
-          ? '0.00'
-          : makingRateController.text;
+      grossWtController.text = '0.00';
+      makingRateController.text = '0.00';
 
       netWtController.text = stockData.stockInfo?.netWt.toString() ?? '0.00';
       purityWeightController.text = '0.00';
@@ -175,7 +174,7 @@ class PosCubit extends Cubit<PosState> {
       grossWtFocusNode.addListener(() {
         if (!grossWtFocusNode.hasFocus) {
           performForwardCalculation();
-          makingRateFocusNode.requestFocus();
+          // makingRateFocusNode.requestFocus();
         }
       });
 
@@ -188,6 +187,12 @@ class PosCubit extends Cubit<PosState> {
       makingAmountFocus.addListener(() {
         if (!makingAmountFocus.hasFocus) {
           performReverseCalculation("makingAmount");
+        }
+      });
+
+      netAmountFocusNode.addListener(() {
+        if (!netAmountFocusNode.hasFocus) {
+          performReverseCalculation("netAmount");
         }
       });
       emitState();
@@ -211,43 +216,38 @@ class PosCubit extends Cubit<PosState> {
     final stoneRate = double.tryParse(stoneRateController.text) ?? 0.0;
     final makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
 
-    // Calculate Net Weight: Net Wt = Gross Wt - Stone Wt
-    final netWt = grossWt - stoneWt;
+    // Perform calculations with fallback to 0.0 for invalid results
+    final netWt = (grossWt - stoneWt).isFinite ? (grossWt - stoneWt) : 0.0;
+    final pureWeight = (netWt * purity).isFinite ? (netWt * purity) : 0.0;
+    final metalAmount =
+        (netWt * metalRate).isFinite ? (netWt * metalRate) : 0.0;
+    final stoneAmount =
+        (stoneWt * stoneRate).isFinite ? (stoneWt * stoneRate) : 0.0;
+    final totalAmount = (metalAmount + stoneAmount + makingAmount).isFinite
+        ? (metalAmount + stoneAmount + makingAmount)
+        : 0.0;
 
-    // Calculate Pure Weight: Pure Weight = Net Wt * Purity
-    final pureWeight = netWt * purity;
-
-    // Calculate Metal Amount: Metal Amount = Net Wt * Metal Rate
-    final metalAmount = netWt * metalRate;
-
-    // Calculate Stone Amount: Stone Amount = Stone Wt * Stone Rate
-    final stoneAmount = stoneWt * stoneRate;
-
-    // Calculate Total Amount: Total Amount = Metal Amount + Stone Amount + Making Amount
-    final totalAmount = metalAmount + stoneAmount + makingAmount;
-
-    // Calculate Tax Amount: Tax Amount = (Total Amount * Tax Percent) / 100
     final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
-    final taxAmount = (totalAmount * taxPercent) / 100;
+    final taxAmount = ((totalAmount * taxPercent) / 100).isFinite
+        ? ((totalAmount * taxPercent) / 100)
+        : 0.0;
 
-    // Calculate Net Amount: Net Amount = Total Amount + Tax Amount
-    final netAmount = totalAmount + taxAmount;
+    final netAmount =
+        (totalAmount + taxAmount).isFinite ? (totalAmount + taxAmount) : 0.0;
 
-    // Bind data to the UI
-    bindDataToUI(
-      grossWt: grossWt,
-      netWt: netWt,
-      pureWeight: pureWeight,
-      metalAmount: metalAmount,
-      stoneAmount: stoneAmount,
-      makingAmount: makingAmount,
-      totalAmount: totalAmount,
-      taxAmount: taxAmount,
-      netAmount: netAmount,
-    );
+    // Bind results to the UI
+    grossWtController.text = grossWt.toStringAsFixed(2);
+    netWtController.text = netWt.toStringAsFixed(2);
+    purityWeightController.text = pureWeight.toStringAsFixed(2);
+    metalAmountController.text = metalAmount.toStringAsFixed(2);
+    stoneAmountController.text = stoneAmount.toStringAsFixed(2);
+    totalAmountController.text = totalAmount.toStringAsFixed(2);
+    taxAmountController.text = taxAmount.toStringAsFixed(2);
+    netAmountController.text = netAmount.toStringAsFixed(2);
+
+    emitState();
   }
 
-  /// Handles reverse calculations for making rate or making amount changes.
   void performReverseCalculation(String trigger) {
     final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
     final netWt = double.tryParse(netWtController.text) ?? 0.0;
@@ -257,22 +257,25 @@ class PosCubit extends Cubit<PosState> {
     double makingAmount = 0.0;
 
     if (trigger == "makingRate") {
-      // Calculate Making Amount: Making Amount = Making Rate * (Net Wt or Gross Wt)
       makingRate = double.tryParse(makingRateController.text) ?? 0.0;
       makingAmount =
-          (makingOn == 'NET') ? makingRate * netWt : makingRate * grossWt;
+          (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
+                  .isFinite
+              ? (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
+              : 0.0;
     } else if (trigger == "makingAmount") {
-      // Calculate Making Rate: Making Rate = Making Amount / (Net Wt or Gross Wt)
       makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
-      makingRate =
-          (makingOn == 'NET') ? makingAmount / netWt : makingAmount / grossWt;
+      makingRate = (makingOn == 'NET'
+                  ? makingAmount / netWt
+                  : makingAmount / grossWt)
+              .isFinite
+          ? (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
+          : 0.0;
     }
 
-    // Update Making Amount and Making Rate in UI
     makingAmountController.text = makingAmount.toStringAsFixed(2);
     makingRateController.text = makingRate.toStringAsFixed(2);
 
-    // Perform forward calculation to update the rest of the dependent fields
     performForwardCalculation();
   }
 
