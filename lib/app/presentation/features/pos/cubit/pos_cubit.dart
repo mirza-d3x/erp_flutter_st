@@ -119,14 +119,7 @@ class PosCubit extends Cubit<PosState> {
     tagDetailsController = TextEditingController();
     rateController = TextEditingController();
     amountController = TextEditingController();
-    _getKarateRateData();
-
-    // makingAmountFocus.addListener(() {
-    //   if (!makingAmountFocus.hasFocus) {
-    //     // When focus is lost, calculate values
-    //     calculateAndSetValues(stockData);
-    //   }
-    // });
+    _getKarateRateData(); 
   }
 
   _getKarateRateData() async {
@@ -178,22 +171,23 @@ class PosCubit extends Cubit<PosState> {
       netAmountController.text = '0.00';
 
       grossWtFocusNode.requestFocus();
+      // Initialize focus node listeners
       grossWtFocusNode.addListener(() {
         if (!grossWtFocusNode.hasFocus) {
-          calculateForGrossWt();
+          performForwardCalculation();
           makingRateFocusNode.requestFocus();
         }
       });
 
       makingRateFocusNode.addListener(() {
         if (!makingRateFocusNode.hasFocus) {
-          calculateForMakingRate();
+          performReverseCalculation("makingRate");
         }
       });
 
       makingAmountFocus.addListener(() {
         if (!makingAmountFocus.hasFocus) {
-          calculateForMakingAmount();
+          performReverseCalculation("makingAmount");
         }
       });
       emitState();
@@ -209,126 +203,101 @@ class PosCubit extends Cubit<PosState> {
     }
   }
 
-  // void calculateAndSetValues(RetailSalesStockValidation stockData) {
-  //   // Parse values from controllers
-  //   final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
-  //   final stoneWt = double.tryParse(stoneWtController.text) ?? 0.0;
-  //   final purity = double.tryParse(purityController.text) ?? 0.0;
-  //   final metalRate = double.tryParse(metalRateController.text) ?? 0.0;
-  //   final stoneRate = double.tryParse(stoneRateController.text) ?? 0.0;
-
-  //   // Calculate Net Weight
-  //   final netWt = grossWt - stoneWt;
-  //   netWtController.text = netWt.toStringAsFixed(2);
-
-  //   // Calculate Pure Weight
-  //   final pureWeight = netWt * purity;
-  //   purityWeightController.text = pureWeight.toStringAsFixed(2);
-
-  //   // Calculate Metal Amount
-  //   final metalAmount = netWt * metalRate;
-  //   metalAmountController.text = metalAmount.toStringAsFixed(2);
-
-  //   // Calculate Stone Amount
-  //   final stoneAmount = stoneWt * stoneRate;
-  //   stoneAmountController.text = stoneAmount.toStringAsFixed(2);
-
-  //   // Get making rate from user input
-  //   final makingRate =
-  //       double.tryParse(makingRateController.text) ?? 0.0; // User-provided rate
-  //   final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
-
-  //   // Calculate Making Amount
-  //   final makingAmount =
-  //       (makingOn == 'NET') ? makingRate * netWt : makingRate * grossWt;
-  //   makingAmountController.text = makingAmount.toStringAsFixed(2);
-
-  //   // Calculate Total Amount
-  //   final totalAmount = metalAmount + stoneAmount + makingAmount;
-  //   totalAmountController.text = totalAmount.toStringAsFixed(2);
-
-  //   // Fetch tax percentage from taxInfo
-  //   final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
-  //   taxPercentController.text = taxPercent.toStringAsFixed(2);
-
-  //   // Calculate Tax Amount
-  //   final taxAmount = (totalAmount * taxPercent) / 100;
-  //   taxAmountController.text = taxAmount.toStringAsFixed(2);
-
-  //   // Calculate Net Amount
-  //   final netAmount = totalAmount + taxAmount;
-  //   netAmountController.text = netAmount.toStringAsFixed(2);
-  //   emitState();
-  // }
-
-  void calculateForGrossWt() {
+  void performForwardCalculation() {
     final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
     final stoneWt = double.tryParse(stoneWtController.text) ?? 0.0;
     final purity = double.tryParse(purityController.text) ?? 0.0;
     final metalRate = double.tryParse(metalRateController.text) ?? 0.0;
     final stoneRate = double.tryParse(stoneRateController.text) ?? 0.0;
-
-    // Calculate Net Weight
-    final netWt = grossWt - stoneWt;
-    netWtController.text = netWt.toStringAsFixed(2);
-
-    // Calculate Pure Weight
-    final pureWeight = netWt * purity;
-    purityWeightController.text = pureWeight.toStringAsFixed(2);
-
-    // Calculate Metal Amount
-    final metalAmount = netWt * metalRate;
-    metalAmountController.text = metalAmount.toStringAsFixed(2);
-
-    // Calculate Stone Amount
-    final stoneAmount = stoneWt * stoneRate;
-    stoneAmountController.text = stoneAmount.toStringAsFixed(2);
-
-    // Calculate Total Amount
     final makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
-    final totalAmount = metalAmount + stoneAmount + makingAmount;
-    totalAmountController.text = totalAmount.toStringAsFixed(2);
 
-    // Calculate Tax Amount
+    // Calculate Net Weight: Net Wt = Gross Wt - Stone Wt
+    final netWt = grossWt - stoneWt;
+
+    // Calculate Pure Weight: Pure Weight = Net Wt * Purity
+    final pureWeight = netWt * purity;
+
+    // Calculate Metal Amount: Metal Amount = Net Wt * Metal Rate
+    final metalAmount = netWt * metalRate;
+
+    // Calculate Stone Amount: Stone Amount = Stone Wt * Stone Rate
+    final stoneAmount = stoneWt * stoneRate;
+
+    // Calculate Total Amount: Total Amount = Metal Amount + Stone Amount + Making Amount
+    final totalAmount = metalAmount + stoneAmount + makingAmount;
+
+    // Calculate Tax Amount: Tax Amount = (Total Amount * Tax Percent) / 100
     final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
     final taxAmount = (totalAmount * taxPercent) / 100;
-    taxAmountController.text = taxAmount.toStringAsFixed(2);
 
-    // Calculate Net Amount
+    // Calculate Net Amount: Net Amount = Total Amount + Tax Amount
     final netAmount = totalAmount + taxAmount;
+
+    // Bind data to the UI
+    bindDataToUI(
+      grossWt: grossWt,
+      netWt: netWt,
+      pureWeight: pureWeight,
+      metalAmount: metalAmount,
+      stoneAmount: stoneAmount,
+      makingAmount: makingAmount,
+      totalAmount: totalAmount,
+      taxAmount: taxAmount,
+      netAmount: netAmount,
+    );
+  }
+
+  /// Handles reverse calculations for making rate or making amount changes.
+  void performReverseCalculation(String trigger) {
+    final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
+    final netWt = double.tryParse(netWtController.text) ?? 0.0;
+    final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
+
+    double makingRate = 0.0;
+    double makingAmount = 0.0;
+
+    if (trigger == "makingRate") {
+      // Calculate Making Amount: Making Amount = Making Rate * (Net Wt or Gross Wt)
+      makingRate = double.tryParse(makingRateController.text) ?? 0.0;
+      makingAmount =
+          (makingOn == 'NET') ? makingRate * netWt : makingRate * grossWt;
+    } else if (trigger == "makingAmount") {
+      // Calculate Making Rate: Making Rate = Making Amount / (Net Wt or Gross Wt)
+      makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
+      makingRate =
+          (makingOn == 'NET') ? makingAmount / netWt : makingAmount / grossWt;
+    }
+
+    // Update Making Amount and Making Rate in UI
+    makingAmountController.text = makingAmount.toStringAsFixed(2);
+    makingRateController.text = makingRate.toStringAsFixed(2);
+
+    // Perform forward calculation to update the rest of the dependent fields
+    performForwardCalculation();
+  }
+
+  /// Binds calculated data to the UI.
+  void bindDataToUI({
+    required double grossWt,
+    required double netWt,
+    required double pureWeight,
+    required double metalAmount,
+    required double stoneAmount,
+    required double makingAmount,
+    required double totalAmount,
+    required double taxAmount,
+    required double netAmount,
+  }) {
+    grossWtController.text = grossWt.toStringAsFixed(2);
+    netWtController.text = netWt.toStringAsFixed(2);
+    purityWeightController.text = pureWeight.toStringAsFixed(2);
+    metalAmountController.text = metalAmount.toStringAsFixed(2);
+    stoneAmountController.text = stoneAmount.toStringAsFixed(2);
+    totalAmountController.text = totalAmount.toStringAsFixed(2);
+    taxAmountController.text = taxAmount.toStringAsFixed(2);
     netAmountController.text = netAmount.toStringAsFixed(2);
 
     emitState();
-  }
-
-  void calculateForMakingRate() {
-    final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
-    final netWt = double.tryParse(netWtController.text) ?? 0.0;
-    final makingRate = double.tryParse(makingRateController.text) ?? 0.0;
-    final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
-
-    // Calculate Making Amount
-    final makingAmount =
-        (makingOn == 'NET') ? makingRate * netWt : makingRate * grossWt;
-    makingAmountController.text = makingAmount.toStringAsFixed(2);
-
-    // Update Total Amount
-    calculateForGrossWt(); // Reuse gross weight logic
-  }
-
-  void calculateForMakingAmount() {
-    final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
-    final netWt = double.tryParse(netWtController.text) ?? 0.0;
-    final makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
-    final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
-
-    // Calculate Making Rate
-    final makingRate =
-        (makingOn == 'NET') ? makingAmount / netWt : makingAmount / grossWt;
-    makingRateController.text = makingRate.toStringAsFixed(2);
-
-    // Update Total Amount
-    calculateForGrossWt();
   }
 
   void openDialog(BuildContext context) {
