@@ -7,6 +7,7 @@ class CustomTextField extends StatefulWidget {
   final String? labelText;
   final String? placeholderText;
   final String? errorText;
+  final String? initialValue; // Optional initial value
   final Color focusedBorderColor;
   final Color unfocusedBorderColor;
   final Color errorBorderColor;
@@ -24,12 +25,14 @@ class CustomTextField extends StatefulWidget {
   final int? minLines;
   final String? Function(String?)? validator;
   final Function()? onEditingComplete;
+  final FocusNode? focusNode; // Optional FocusNode
 
   const CustomTextField({
     required this.controller,
     this.labelText = ' ',
     this.placeholderText = ' ',
     this.errorText,
+    this.initialValue, // Add the optional initial value
     this.focusedBorderColor = Colors.teal,
     this.unfocusedBorderColor = const Color(0xffD1D5DB),
     this.errorBorderColor = Colors.red,
@@ -49,6 +52,7 @@ class CustomTextField extends StatefulWidget {
     this.minLines = 1,
     this.validator,
     this.onEditingComplete,
+    this.focusNode, // Optional parameter
   });
 
   @override
@@ -63,8 +67,16 @@ class CustomTextFieldState extends State<CustomTextField> {
   @override
   void initState() {
     super.initState();
-    _focusNode = FocusNode();
     _controller = widget.controller;
+
+    // Set initial value if provided
+    if (widget.initialValue != null) {
+      _controller.text = widget.initialValue!;
+    }
+
+    // Use provided FocusNode if available, otherwise create a new one
+    _focusNode = widget.focusNode ?? FocusNode();
+
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -72,7 +84,10 @@ class CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void dispose() {
-    _focusNode.dispose();
+    // Dispose the FocusNode only if it was created internally
+    if (widget.focusNode == null) {
+      _focusNode.dispose();
+    }
     super.dispose();
   }
 
@@ -90,18 +105,9 @@ class CustomTextFieldState extends State<CustomTextField> {
       onTap: () => _focusNode.requestFocus(),
       child: Container(
         height: 56,
-        // padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(widget.borderRadius),
-          // border: Border.all(
-          //   width: 1,
-          //   color: _errorText != null
-          //       ? widget.errorBorderColor // Red when there is an error
-          //       : isFocused
-          //           ? widget.focusedBorderColor // Blue when focused
-          //           : widget.unfocusedBorderColor, // Grey when unfocused
-          // ),
         ),
         child: TextFormField(
           onEditingComplete: widget.onEditingComplete,
@@ -121,9 +127,8 @@ class CustomTextFieldState extends State<CustomTextField> {
             floatingLabelBehavior: FloatingLabelBehavior.always,
             filled: true,
             fillColor: Colors.white,
-            hintText: '${widget.labelText}',
-            labelText: widget
-                .labelText, // Use labelText directly instead of label widget
+            hintText: widget.labelText,
+            labelText: widget.labelText,
             labelStyle: widget.labelStyle,
             hintStyle: TextStyle(
               fontFamily: 'Nato Sans',
@@ -132,29 +137,27 @@ class CustomTextFieldState extends State<CustomTextField> {
               fontSize: 16,
               fontWeight: FontWeight.w400,
             ),
-            errorText: _errorText != null
-                ? ''
-                : null, // Prevents rendering error text in case of error
+            errorText: _errorText != null ? '' : null,
             errorStyle: const TextStyle(height: 0.1, fontSize: 0),
             contentPadding: widget.contentPadding,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               borderSide: BorderSide(
-                color: widget.unfocusedBorderColor, // Grey when unfocused
+                color: widget.unfocusedBorderColor,
                 width: 1.0,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               borderSide: BorderSide(
-                color: widget.focusedBorderColor, // Blue when focused
+                color: widget.focusedBorderColor,
                 width: 2.0,
               ),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               borderSide: BorderSide(
-                color: widget.errorBorderColor, // Red when there is an error
+                color: widget.errorBorderColor,
                 width: 2.0,
               ),
             ),
