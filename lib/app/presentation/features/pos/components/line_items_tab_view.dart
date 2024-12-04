@@ -1,5 +1,7 @@
+import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LineItemsTabView extends StatelessWidget {
   final TabController tabController;
@@ -8,6 +10,7 @@ class LineItemsTabView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = BlocProvider.of<PosCubit>(context);
     return Card(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -82,10 +85,11 @@ class LineItemsTabView extends StatelessWidget {
               ),
             ),
           ),
-          ElevatedButton.icon(
-            onPressed: () {},
+          IconButton(
+            onPressed: () {
+              cubit.openDialog(context);
+            },
             icon: const Icon(Icons.add),
-            label: const Text('Add Item'),
           ),
         ],
       ),

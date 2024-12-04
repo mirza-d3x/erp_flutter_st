@@ -44,9 +44,7 @@ class VoucherDetails extends StatelessWidget {
                           absorbing: false,
                           child: CustomElevatedButton(
                             text: 'New',
-                            onPressed: () {
-                              cubit.openDialog(context);
-                            },
+                            onPressed: () {},
                           ),
                         ),
                       ),
