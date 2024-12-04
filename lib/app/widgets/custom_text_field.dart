@@ -25,7 +25,8 @@ class CustomTextField extends StatefulWidget {
   final int? minLines;
   final String? Function(String?)? validator;
   final Function()? onEditingComplete;
-  final FocusNode? focusNode; // Optional FocusNode
+  final FocusNode? focusNode;
+  final bool? enabled;
 
   const CustomTextField({
     required this.controller,
@@ -52,7 +53,8 @@ class CustomTextField extends StatefulWidget {
     this.minLines = 1,
     this.validator,
     this.onEditingComplete,
-    this.focusNode, // Optional parameter
+    this.focusNode,
+    this.enabled,
   });
 
   @override
@@ -112,6 +114,7 @@ class CustomTextFieldState extends State<CustomTextField> {
         child: TextFormField(
           onEditingComplete: widget.onEditingComplete,
           validator: _validate,
+          enabled: widget.enabled,
           maxLines: widget.maxLines,
           minLines: widget.minLines,
           keyboardType: widget.textInputType ?? TextInputType.name,
@@ -141,6 +144,13 @@ class CustomTextFieldState extends State<CustomTextField> {
             errorStyle: const TextStyle(height: 0.1, fontSize: 0),
             contentPadding: widget.contentPadding,
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(widget.borderRadius),
+              borderSide: BorderSide(
+                color: widget.unfocusedBorderColor,
+                width: 1.0,
+              ),
+            ),
+            disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               borderSide: BorderSide(
                 color: widget.unfocusedBorderColor,
