@@ -73,8 +73,10 @@ class SalesDetailsDialog extends StatelessWidget {
                         const SizedBox(width: 10),
                         Expanded(
                           child: AbsorbPointer(
-                            absorbing: true,
+                            absorbing:
+                                cubit.stockDescriptionController.text.isEmpty,
                             child: CustomTextField(
+                              focusNode: cubit.grossWtFocusNode,
                               labelText: 'Gross Wt',
                               controller: cubit.grossWtController,
                             ),
@@ -101,6 +103,33 @@ class SalesDetailsDialog extends StatelessWidget {
                           ),
                         ),
                       ],
+                    ),
+                    const SizedBox(height: 5),
+                    Visibility(
+                      visible: cubit.divisionController.text == 'G',
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Purity',
+                                controller: cubit.purityController,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Pure Weight',
+                                controller: cubit.purityWeightController,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 5),
                     Row(
@@ -155,48 +184,88 @@ class SalesDetailsDialog extends StatelessWidget {
                       children: [
                         Expanded(
                           child: AbsorbPointer(
-                            absorbing: true,
+                            absorbing: (double.tryParse(
+                                        cubit.grossWtController.text) ??
+                                    0.00) <
+                                1,
                             child: CustomTextField(
-                              labelText: 'Rate',
-                              controller: cubit.rateController,
+                              focusNode: cubit.makingRateFocusNode,
+                              labelText: 'Making Rate',
+                              controller: cubit.makingRateController,
                             ),
                           ),
                         ),
                         const SizedBox(width: 10),
                         Expanded(
                           child: AbsorbPointer(
-                            absorbing: true,
+                            absorbing: (double.tryParse(
+                                        cubit.grossWtController.text) ??
+                                    0.00) >
+                                1,
                             child: CustomTextField(
-                              labelText: 'Amount',
-                              controller: cubit.amountController,
+                              focusNode: cubit.makingAmountFocus,
+                              labelText: 'Making Amount',
+                              controller: cubit.makingAmountController,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: AbsorbPointer(
-                            absorbing: true,
-                            child: CustomTextField(
-                              labelText: 'Discount %',
-                              controller: cubit.discountPercentController,
+                    const SizedBox(height: 5),
+                    Visibility(
+                      visible: cubit.divisionController.text != 'G',
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Rate',
+                                controller: cubit.rateController,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: AbsorbPointer(
-                            absorbing: true,
-                            child: CustomTextField(
-                              labelText: 'Discount Amount',
-                              controller: cubit.discountAmountController,
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Amount',
+                                controller: cubit.amountController,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
+                    ),
+                    cubit.divisionController.text != 'G'
+                        ? const SizedBox(height: 10)
+                        : const SizedBox(),
+                    Visibility(
+                      visible: cubit.divisionController.text != 'G',
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Discount %',
+                                controller: cubit.discountPercentController,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: AbsorbPointer(
+                              absorbing: true,
+                              child: CustomTextField(
+                                labelText: 'Discount Amount',
+                                controller: cubit.discountAmountController,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 5),
                     Row(
