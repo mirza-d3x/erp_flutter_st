@@ -226,36 +226,28 @@ class PosCubit extends Cubit<PosState> {
     final makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
 
     // Calculate Net Wt
-    final netWt = (grossWt - stoneWt).isFinite ? (grossWt - stoneWt) : 0.0;
+    final netWt = grossWt - stoneWt;
 
     // Calculate Pure Weight
-    final pureWeight = (netWt * purity).isFinite ? (netWt * purity) : 0.0;
+    final pureWeight = netWt * purity;
 
     // Calculate Metal Amount
-    final metalAmount =
-        (pureWeight * metalRate).isFinite ? (pureWeight * metalRate) : 0.0;
+    final metalAmount = pureWeight * metalRate;
 
     // Calculate Stone Amount
-    final stoneAmount =
-        (stoneWt * stoneRate).isFinite ? (stoneWt * stoneRate) : 0.0;
+    final stoneAmount = stoneWt * stoneRate;
 
     // Calculate Total Amount
-    final totalAmount = (metalAmount + stoneAmount + makingAmount).isFinite
-        ? (metalAmount + stoneAmount + makingAmount)
-        : 0.0;
+    final totalAmount = metalAmount + stoneAmount + makingAmount;
 
     // Calculate Tax Amount
     final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
-    final taxAmount = ((totalAmount * taxPercent) / 100).isFinite
-        ? ((totalAmount * taxPercent) / 100)
-        : 0.0;
+    final taxAmount = (totalAmount * taxPercent) / 100;
 
     // Calculate Net Amount
-    final netAmount =
-        (totalAmount + taxAmount).isFinite ? (totalAmount + taxAmount) : 0.0;
+    final netAmount = totalAmount + taxAmount;
 
     // Update UI fields
-    grossWtController.text = grossWt.toStringAsFixed(2);
     netWtController.text = netWt.toStringAsFixed(2);
     purityWeightController.text = pureWeight.toStringAsFixed(2);
     metalAmountController.text = metalAmount.toStringAsFixed(2);
@@ -289,15 +281,34 @@ class PosCubit extends Cubit<PosState> {
       totalAmount =
           (netAmount - taxAmount).isFinite ? (netAmount - taxAmount) : 0.0;
 
-      // Reset Making Amount and Making Rate only if both are 0
-      if (makingAmount == 0.0 && makingRate == 0.0) {
-        makingAmountController.text = '0.0';
-        makingRateController.text = '0.0';
-      }
-
       // Update UI fields
       taxAmountController.text = taxAmount.toStringAsFixed(2);
       totalAmountController.text = totalAmount.toStringAsFixed(2);
+
+      // Recalculate Making Amount and Making Rate
+      final metalAmount = double.tryParse(metalAmountController.text) ?? 0.0;
+      final stoneAmount = double.tryParse(stoneAmountController.text) ?? 0.0;
+
+      // Calculate Making Amount as the residual after subtracting metal and stone amounts
+      makingAmount = totalAmount - metalAmount - stoneAmount;
+
+      // Calculate Making Rate based on Making Amount
+      if (grossWt > 0 || netWt > 0) {
+        makingRate =
+            (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
+                    .isFinite
+                ? (makingOn == 'NET'
+                    ? makingAmount / netWt
+                    : makingAmount / grossWt)
+                : 0.0;
+      }
+
+      // Update UI fields for Making Amount and Making Rate
+      makingAmountController.text = makingAmount.toStringAsFixed(2);
+      makingRateController.text = makingRate.toStringAsFixed(2);
+
+      // Trigger forward calculation to recalculate dependent fields
+      performForwardCalculation();
     } else if (trigger == "makingAmount") {
       // Reverse calculate Making Rate from Making Amount
       if (grossWt > 0 || netWt > 0) {
@@ -313,7 +324,7 @@ class PosCubit extends Cubit<PosState> {
       // Update Making Rate in UI
       makingRateController.text = makingRate.toStringAsFixed(2);
 
-      // Trigger forward calculation to recalculate dependent fields
+      // Trigger forward calculation
       performForwardCalculation();
     } else if (trigger == "makingRate") {
       // Reverse calculate Making Amount from Making Rate
@@ -329,34 +340,10 @@ class PosCubit extends Cubit<PosState> {
       // Update Making Amount in UI
       makingAmountController.text = makingAmount.toStringAsFixed(2);
 
-      // Trigger forward calculation to recalculate dependent fields
+      // Trigger forward calculation
       performForwardCalculation();
     }
   }
-
-  /// Binds calculated data to the UI.
-  // void bindDataToUI({
-  //   required double grossWt,
-  //   required double netWt,
-  //   required double pureWeight,
-  //   required double metalAmount,
-  //   required double stoneAmount,
-  //   required double makingAmount,
-  //   required double totalAmount,
-  //   required double taxAmount,
-  //   required double netAmount,
-  // }) {
-  //   grossWtController.text = grossWt.toStringAsFixed(2);
-  //   netWtController.text = netWt.toStringAsFixed(2);
-  //   purityWeightController.text = pureWeight.toStringAsFixed(2);
-  //   metalAmountController.text = metalAmount.toStringAsFixed(2);
-  //   stoneAmountController.text = stoneAmount.toStringAsFixed(2);
-  //   totalAmountController.text = totalAmount.toStringAsFixed(2);
-  //   taxAmountController.text = taxAmount.toStringAsFixed(2);
-  //   netAmountController.text = netAmount.toStringAsFixed(2);
-
-  //   emitState();
-  // }
 
   void openDialog(BuildContext context) {
     showDialog(
