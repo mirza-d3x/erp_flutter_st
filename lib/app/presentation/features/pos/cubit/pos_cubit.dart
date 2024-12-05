@@ -122,6 +122,40 @@ class PosCubit extends Cubit<PosState> {
     rateController = TextEditingController();
     amountController = TextEditingController();
     _getKarateRateData();
+
+    // Initialize focus node listeners
+    grossWtFocusNode.addListener(() {
+      if (!grossWtFocusNode.hasFocus &&
+          (num.tryParse(grossWtController.text) ?? 0.0) > 0) {
+        performForwardCalculation();
+        // makingRateFocusNode.requestFocus();
+      }
+    });
+
+    makingRateFocusNode.addListener(() {
+      if (!makingRateFocusNode.hasFocus &&
+          (num.tryParse(makingRateController.text) ?? 0.0) > 0) {
+        performReverseCalculation("makingRate");
+      }
+    });
+
+    makingAmountFocus.addListener(() {
+      if (!makingAmountFocus.hasFocus &&
+          (num.tryParse(makingAmountController.text) ?? 0.0) > 0 &&
+          (num.tryParse(grossWtController.text) ?? 0.0) > 0) {
+        performReverseCalculation("makingAmount");
+      } else if (makingAmountFocus.hasFocus) {
+      } else {
+        makingAmountController.clear();
+      }
+    });
+
+    netAmountFocusNode.addListener(() {
+      if (!netAmountFocusNode.hasFocus &&
+          (num.tryParse(netAmountController.text) ?? 0.0) > 0) {
+        performReverseCalculation("netAmount");
+      }
+    });
   }
 
   _getKarateRateData() async {
@@ -170,39 +204,6 @@ class PosCubit extends Cubit<PosState> {
       netAmountController.text = '0.00';
 
       grossWtFocusNode.requestFocus();
-      // Initialize focus node listeners
-      grossWtFocusNode.addListener(() {
-        if (!grossWtFocusNode.hasFocus &&
-            (num.tryParse(grossWtController.text) ?? 0.0) > 0) {
-          performForwardCalculation();
-          // makingRateFocusNode.requestFocus();
-        }
-      });
-
-      makingRateFocusNode.addListener(() {
-        if (!makingRateFocusNode.hasFocus &&
-            (num.tryParse(makingRateController.text) ?? 0.0) > 0) {
-          performReverseCalculation("makingRate");
-        }
-      });
-
-      makingAmountFocus.addListener(() {
-        if (!makingAmountFocus.hasFocus &&
-            (num.tryParse(makingAmountController.text) ?? 0.0) > 0 &&
-            (num.tryParse(grossWtController.text) ?? 0.0) > 0) {
-          performReverseCalculation("makingAmount");
-        } else if (makingAmountFocus.hasFocus) {
-        } else {
-          makingAmountController.clear();
-        }
-      });
-
-      netAmountFocusNode.addListener(() {
-        if (!netAmountFocusNode.hasFocus &&
-            (num.tryParse(netAmountController.text) ?? 0.0) > 0) {
-          performReverseCalculation("netAmount");
-        }
-      });
       emitState();
     } else {
       showCustomAlertDialog(
@@ -272,8 +273,8 @@ class PosCubit extends Cubit<PosState> {
     final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
     final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
 
-    double makingRate = 0.0;
-    double makingAmount = 0.0;
+    double makingRate = double.tryParse(makingRateController.text) ?? 0.0;
+    double makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
     double totalAmount = 0.0;
     double taxAmount = 0.0;
     double netAmount = double.tryParse(netAmountController.text) ?? 0.0;
@@ -288,17 +289,17 @@ class PosCubit extends Cubit<PosState> {
       totalAmount =
           (netAmount - taxAmount).isFinite ? (netAmount - taxAmount) : 0.0;
 
-      // Reset Making Amount and Making Rate for new inputs
-      makingAmountController.text = '0.0';
-      makingRateController.text = '0.0';
+      // Reset Making Amount and Making Rate only if both are 0
+      if (makingAmount == 0.0 && makingRate == 0.0) {
+        makingAmountController.text = '0.0';
+        makingRateController.text = '0.0';
+      }
 
       // Update UI fields
       taxAmountController.text = taxAmount.toStringAsFixed(2);
       totalAmountController.text = totalAmount.toStringAsFixed(2);
     } else if (trigger == "makingAmount") {
       // Reverse calculate Making Rate from Making Amount
-      makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
-
       if (grossWt > 0 || netWt > 0) {
         makingRate =
             (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
@@ -316,8 +317,6 @@ class PosCubit extends Cubit<PosState> {
       performForwardCalculation();
     } else if (trigger == "makingRate") {
       // Reverse calculate Making Amount from Making Rate
-      makingRate = double.tryParse(makingRateController.text) ?? 0.0;
-
       if (grossWt > 0 || netWt > 0) {
         makingAmount = (makingOn == 'NET'
                     ? makingRate * netWt
