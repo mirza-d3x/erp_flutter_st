@@ -296,33 +296,41 @@ class PosCubit extends Cubit<PosState> {
       taxAmountController.text = taxAmount.toStringAsFixed(2);
       totalAmountController.text = totalAmount.toStringAsFixed(2);
     } else if (trigger == "makingAmount") {
-      // Calculate Making Rate from Making Amount
+      // Reverse calculate Making Rate from Making Amount
       makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
-      makingRate = (makingOn == 'NET'
-                  ? makingAmount / netWt
-                  : makingAmount / grossWt)
-              .isFinite
-          ? (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
-          : 0.0;
+
+      if (grossWt > 0 || netWt > 0) {
+        makingRate =
+            (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
+                    .isFinite
+                ? (makingOn == 'NET'
+                    ? makingAmount / netWt
+                    : makingAmount / grossWt)
+                : 0.0;
+      }
 
       // Update Making Rate in UI
       makingRateController.text = makingRate.toStringAsFixed(2);
 
-      // Trigger forward calculation to recalculate Net Amount
+      // Trigger forward calculation to recalculate dependent fields
       performForwardCalculation();
     } else if (trigger == "makingRate") {
-      // Calculate Making Amount from Making Rate
+      // Reverse calculate Making Amount from Making Rate
       makingRate = double.tryParse(makingRateController.text) ?? 0.0;
-      makingAmount =
-          (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
-                  .isFinite
-              ? (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
-              : 0.0;
+
+      if (grossWt > 0 || netWt > 0) {
+        makingAmount = (makingOn == 'NET'
+                    ? makingRate * netWt
+                    : makingRate * grossWt)
+                .isFinite
+            ? (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
+            : 0.0;
+      }
 
       // Update Making Amount in UI
       makingAmountController.text = makingAmount.toStringAsFixed(2);
 
-      // Trigger forward calculation to recalculate Net Amount
+      // Trigger forward calculation to recalculate dependent fields
       performForwardCalculation();
     }
   }
