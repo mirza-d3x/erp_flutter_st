@@ -3,6 +3,7 @@ import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_text_field.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SalesDetailsDialog extends StatelessWidget {
@@ -33,6 +34,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Division',
                                   controller: cubit.divisionController,
@@ -42,8 +50,14 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.streetAddress,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^[a-zA-Z0-9]*$'),
+                                    ),
+                                  ],
                                   labelText: 'Stock Code',
-                                  textInputAction: TextInputAction.done,
                                   controller: cubit.stockCodeController,
                                   onEditingComplete: () {
                                     cubit.getStockDetails(context);
@@ -54,6 +68,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Stock Description',
                                   controller: cubit.stockDescriptionController,
@@ -67,6 +88,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Pcs',
                                   controller: cubit.pcsController,
@@ -76,6 +104,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: cubit.stockDescriptionController.text
                                       .isNotEmpty,
                                   focusNode: cubit.grossWtFocusNode,
@@ -87,6 +122,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Stone Wt',
                                   controller: cubit.stoneWtController,
@@ -96,6 +138,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Net Wt',
                                   controller: cubit.netWtController,
@@ -111,6 +160,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Purity',
                                     controller: cubit.purityController,
@@ -120,6 +176,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Pure Weight',
                                     controller: cubit.purityWeightController,
@@ -134,6 +197,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Metal Rate',
                                   controller: cubit.metalRateController,
@@ -143,6 +213,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Metal Amount',
                                   controller: cubit.metalAmountController,
@@ -156,6 +233,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Stone Rate',
                                   controller: cubit.stoneRateController,
@@ -165,6 +249,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Stone Amount',
                                   controller: cubit.stoneAmountController,
@@ -178,6 +269,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: cubit.stockDescriptionController.text
                                       .isNotEmpty,
                                   focusNode: cubit.makingRateFocusNode,
@@ -189,6 +287,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: cubit.stockDescriptionController.text
                                       .isNotEmpty,
                                   focusNode: cubit.makingAmountFocus,
@@ -206,6 +311,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Rate',
                                     controller: cubit.rateController,
@@ -215,6 +327,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Amount',
                                     controller: cubit.amountController,
@@ -231,6 +350,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Discount %',
                                     controller: cubit.discountPercentController,
@@ -240,6 +366,13 @@ class SalesDetailsDialog extends StatelessWidget {
                                 Flexible(
                                   fit: FlexFit.loose,
                                   child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
                                     enabled: false,
                                     labelText: 'Discount Amount',
                                     controller: cubit.discountAmountController,
@@ -254,6 +387,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Total Amount',
                                   controller: cubit.totalAmountController,
@@ -263,6 +403,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Tax %',
                                   controller: cubit.taxPercentController,
@@ -272,6 +419,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: false,
                                   labelText: 'Tax Amount',
                                   controller: cubit.taxAmountController,
@@ -285,6 +439,13 @@ class SalesDetailsDialog extends StatelessWidget {
                               Flexible(
                                 fit: FlexFit.loose,
                                 child: CustomTextField(
+                                  textInputType: TextInputType.number,
+                                  textInputAction: TextInputAction.next,
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                      RegExp(r'^\d+(\.\d*)?$'),
+                                    ),
+                                  ],
                                   enabled: cubit.stockDescriptionController.text
                                       .isNotEmpty,
                                   focusNode: cubit.netAmountFocusNode,

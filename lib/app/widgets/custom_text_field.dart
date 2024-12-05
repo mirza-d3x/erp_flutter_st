@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import for TextInputFormatter
 
 import '../../constants/theme/styles.dart';
 
@@ -7,7 +8,7 @@ class CustomTextField extends StatefulWidget {
   final String? labelText;
   final String? placeholderText;
   final String? errorText;
-  final String? initialValue; // Optional initial value
+  final String? initialValue;
   final Color focusedBorderColor;
   final Color unfocusedBorderColor;
   final Color errorBorderColor;
@@ -27,13 +28,15 @@ class CustomTextField extends StatefulWidget {
   final Function()? onEditingComplete;
   final FocusNode? focusNode;
   final bool? enabled;
+  final List<TextInputFormatter>?
+      inputFormatters; // New optional input formatters
 
   const CustomTextField({
     required this.controller,
     this.labelText = ' ',
     this.placeholderText = ' ',
     this.errorText,
-    this.initialValue, // Add the optional initial value
+    this.initialValue,
     this.focusedBorderColor = Colors.teal,
     this.unfocusedBorderColor = const Color(0xffD1D5DB),
     this.errorBorderColor = Colors.red,
@@ -55,6 +58,7 @@ class CustomTextField extends StatefulWidget {
     this.onEditingComplete,
     this.focusNode,
     this.enabled,
+    this.inputFormatters, // Include in constructor
   });
 
   @override
@@ -71,14 +75,11 @@ class CustomTextFieldState extends State<CustomTextField> {
     super.initState();
     _controller = widget.controller;
 
-    // Set initial value if provided
     if (widget.initialValue != null) {
       _controller.text = widget.initialValue!;
     }
 
-    // Use provided FocusNode if available, otherwise create a new one
     _focusNode = widget.focusNode ?? FocusNode();
-
     _focusNode.addListener(() {
       setState(() {});
     });
@@ -86,7 +87,6 @@ class CustomTextFieldState extends State<CustomTextField> {
 
   @override
   void dispose() {
-    // Dispose the FocusNode only if it was created internally
     if (widget.focusNode == null) {
       _focusNode.dispose();
     }
@@ -124,6 +124,7 @@ class CustomTextFieldState extends State<CustomTextField> {
           controller: _controller,
           obscureText: widget.obscureText,
           focusNode: _focusNode,
+          inputFormatters: widget.inputFormatters, // Apply input formatters
           cursorHeight: 20,
           cursorOpacityAnimates: true,
           decoration: InputDecoration(
