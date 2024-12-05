@@ -1,6 +1,4 @@
 import 'package:erp_mobile/app/presentation/features/pos/components/drawer_widget.dart';
-import 'package:erp_mobile/app/presentation/features/pos/components/karat_rate_table.dart';
-import 'package:erp_mobile/app/presentation/features/pos/components/total_details_panel.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/voucher_details.dart';
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/customer_details.dart';
@@ -66,8 +64,10 @@ class PosScreenState extends State<PosScreen>
             return BlocBuilder<PosCubit, PosState>(builder: (context, state) {
               switch (state) {
                 case PosInitial():
-                  return const Center(
-                    child: CircularProgressIndicator(),
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: customColors().primary,
+                    ),
                   );
                 case PosLoaded():
                   return Container(

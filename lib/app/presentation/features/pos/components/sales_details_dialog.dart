@@ -1,4 +1,5 @@
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/sales_details_cubit.dart';
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_text_field.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
@@ -11,18 +12,20 @@ class SalesDetailsDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = BlocProvider.of<PosCubit>(context);
+    final cubit = BlocProvider.of<SalesDetailsCubit>(context);
     return AlertDialog(
       title: const Text('Sales Details'),
       content: SingleChildScrollView(
-        child: BlocBuilder<PosCubit, PosState>(
+        child: BlocBuilder<SalesDetailsCubit, SalesDetailsState>(
           builder: (context, state) {
             switch (state) {
-              case PosInitial():
+              case SalesDetailsInitial():
                 return const Center(
-                  child: CircularProgressIndicator(),
+                  child: CircularProgressIndicator(
+                    color: Colors.amber,
+                  ),
                 );
-              case PosLoaded():
+              case SalesDetailsLoaded():
                 return Row(
                   children: [
                     Expanded(
