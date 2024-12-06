@@ -1,11 +1,11 @@
 class RetailSalesStockValidation {
   RetailSalesStockValidation({
-    required this.message,
-    required this.status,
-    required this.resultStatus,
-    required this.stockInfo,
-    required this.priceInfo,
-    required this.taxInfo,
+    this.message = "",
+    this.status = "",
+    this.resultStatus,
+    this.stockInfo,
+    this.priceInfo,
+    this.taxInfo = const [],
   });
 
   final String message;
@@ -30,55 +30,56 @@ class RetailSalesStockValidation {
           : PriceInfo.fromJson(json["priceInfo"]),
       taxInfo: json["taxInfo"] == null
           ? []
-          : List<TaxInfo>.from(
-              json["taxInfo"]!.map((x) => TaxInfo.fromJson(x))),
+          : List<TaxInfo>.from(json["taxInfo"].map((x) => TaxInfo.fromJson(x))),
     );
   }
 }
 
 class PriceInfo {
   PriceInfo({
-    required this.stockCode,
-    required this.stockDescription,
-    required this.stockCost,
-    required this.sellingPrice,
-    required this.minSalPrice,
-    required this.stoneSalesPrice,
-    required this.kundanSalesPrice,
-    required this.wastageSalesPrice,
-    required this.consumableSalesPrice,
+    this.stockCode = "",
+    this.stockDescription = "",
+    this.stockCost = 0.0,
+    this.sellingPrice = 0.0,
+    this.minSalPrice = 0.0,
+    this.stoneSalesPrice = 0.0,
+    this.kundanSalesPrice = 0.0,
+    this.wastageSalesPrice = 0.0,
+    this.consumableSalesPrice = 0.0,
   });
 
-  final dynamic stockCode;
-  final dynamic stockDescription;
-  final dynamic stockCost;
-  final dynamic sellingPrice;
-  final dynamic minSalPrice;
-  final dynamic stoneSalesPrice;
-  final dynamic kundanSalesPrice;
-  final dynamic wastageSalesPrice;
-  final dynamic consumableSalesPrice;
+  final String stockCode;
+  final String stockDescription;
+  final num stockCost;
+  final num sellingPrice;
+  final num minSalPrice;
+  final num stoneSalesPrice;
+  final num kundanSalesPrice;
+  final num wastageSalesPrice;
+  final num consumableSalesPrice;
 
   factory PriceInfo.fromJson(Map<String, dynamic> json) {
     return PriceInfo(
-      stockCode: json["STOCK_CODE"],
-      stockDescription: json["STOCK_DESCRIPTION"],
-      stockCost: json["STOCK_COST"],
-      sellingPrice: json["SELLING_PRICE"],
-      minSalPrice: json["MIN_SAL_PRICE"],
-      stoneSalesPrice: json["STONE_SALES_PRICE"],
-      kundanSalesPrice: json["KUNDAN_SALES_PRICE"],
-      wastageSalesPrice: json["WASTAGE_SALES_PRICE"],
-      consumableSalesPrice: json["CONSUMABLE_SALES_PRICE"],
+      stockCode: json["STOCK_CODE"] ?? "",
+      stockDescription: json["STOCK_DESCRIPTION"] ?? "",
+      stockCost: num.tryParse(json["STOCK_COST"] ?? "0") ?? 0.0,
+      sellingPrice: num.tryParse(json["SELLING_PRICE"] ?? "0") ?? 0.0,
+      minSalPrice: num.tryParse(json["MIN_SAL_PRICE"] ?? "0") ?? 0.0,
+      stoneSalesPrice: num.tryParse(json["STONE_SALES_PRICE"] ?? "0") ?? 0.0,
+      kundanSalesPrice: num.tryParse(json["KUNDAN_SALES_PRICE"] ?? "0") ?? 0.0,
+      wastageSalesPrice:
+          num.tryParse(json["WASTAGE_SALES_PRICE"] ?? "0") ?? 0.0,
+      consumableSalesPrice:
+          num.tryParse(json["CONSUMABLE_SALES_PRICE"] ?? "0") ?? 0.0,
     );
   }
 }
 
 class ResultStatus {
   ResultStatus({
-    required this.resultType,
-    required this.messageId,
-    required this.validStock,
+    this.resultType = "",
+    this.messageId = "",
+    this.validStock = false,
   });
 
   final String resultType;
@@ -96,63 +97,63 @@ class ResultStatus {
 
 class StockInfo {
   StockInfo({
-    required this.stockCode,
-    required this.description,
-    required this.balancePcs,
-    required this.balanceQty,
-    required this.mkgStockvalue,
-    required this.divisionms,
-    required this.division,
-    required this.stone,
-    required this.blockGrwt,
-    required this.setRef,
-    required this.allowNegative,
-    required this.tvatonmargin,
-    required this.karatCode,
-    required this.taglines,
-    required this.supplier,
-    required this.purity,
-    required this.mainStockCode,
-    required this.askWastage,
-    required this.posfixed,
-    required this.stampcharges,
-    required this.tpromotionalitem,
-    required this.itemOnhold,
-    required this.pictureName,
-    required this.unqOrderId,
-    required this.locationCode,
-    required this.rateType,
-    required this.rate,
-    required this.stoneWt,
-    required this.netWt,
-    required this.blockNegativestock,
-    required this.blockMinimumprice,
-    required this.validatePcs,
-    required this.metalRate,
-    required this.metalRatePergms24Karat,
-    required this.metalRatePergmsItemkarat,
-    required this.giftVoucher,
-    required this.dontShowStockbal,
-    required this.pcsToGms,
-    required this.isBarcodedItem,
-    required this.makingOn,
-    required this.lessthancost,
-    required this.gstvatonmaking,
-    required this.excludegstvat,
-    required this.alloweditdescription,
-    required this.enablePcs,
-    required this.dontAllowDuplicate,
-    required this.gpcPossalesAc,
-    required this.gpcStonediff,
-    required this.gpcStonediffvalue,
-    required this.gpcKundanvaluesalesAc,
-    required this.gpcPossalessrAc,
-    required this.gpcMetalamtAc,
-    required this.gpcPhysicalstockAc,
-    required this.gpcWastageAc,
-    required this.gpcStampchargeAc,
-    required this.blockedSamedaySales,
-    required this.allowWithoutRate,
+    this.stockCode = "",
+    this.description = "",
+    this.balancePcs = "",
+    this.balanceQty = "",
+    this.mkgStockvalue = "",
+    this.divisionms = "",
+    this.division = "",
+    this.stone = false,
+    this.blockGrwt = "",
+    this.setRef = "",
+    this.allowNegative = "",
+    this.tvatonmargin = "",
+    this.karatCode = "",
+    this.taglines = "",
+    this.supplier = "",
+    this.purity = "",
+    this.mainStockCode = "",
+    this.askWastage = "",
+    this.posfixed = "",
+    this.stampcharges = "",
+    this.tpromotionalitem = "",
+    this.itemOnhold = "",
+    this.pictureName = "",
+    this.unqOrderId = "",
+    this.locationCode = "",
+    this.rateType = "",
+    this.rate = 0.0,
+    this.stoneWt = 0.0,
+    this.netWt = 0.0,
+    this.blockNegativestock = "",
+    this.blockMinimumprice = "",
+    this.validatePcs = false,
+    this.metalRate = 0.0,
+    this.metalRatePergms24Karat = 0.0,
+    this.metalRatePergmsItemkarat = 0.0,
+    this.giftVoucher = false,
+    this.dontShowStockbal = false,
+    this.pcsToGms = 0.0,
+    this.isBarcodedItem = false,
+    this.makingOn = "",
+    this.lessthancost = false,
+    this.gstvatonmaking = false,
+    this.excludegstvat = false,
+    this.alloweditdescription = false,
+    this.enablePcs = false,
+    this.dontAllowDuplicate = false,
+    this.gpcPossalesAc = "",
+    this.gpcStonediff = "",
+    this.gpcStonediffvalue = "",
+    this.gpcKundanvaluesalesAc = "",
+    this.gpcPossalessrAc = "",
+    this.gpcMetalamtAc = "",
+    this.gpcPhysicalstockAc = "",
+    this.gpcWastageAc = "",
+    this.gpcStampchargeAc = "",
+    this.blockedSamedaySales = false,
+    this.allowWithoutRate = false,
   });
 
   final String stockCode;
@@ -241,18 +242,18 @@ class StockInfo {
       unqOrderId: json["UNQ_ORDER_ID"] ?? "",
       locationCode: json["LOCATION_CODE"] ?? "",
       rateType: json["RATE_TYPE"] ?? "",
-      rate: json["RATE"] ?? 0,
-      stoneWt: json["STONE_WT"] ?? 0,
-      netWt: json["NET_WT"] ?? 0,
+      rate: json["RATE"] ?? 0.0,
+      stoneWt: json["STONE_WT"] ?? 0.0,
+      netWt: json["NET_WT"] ?? 0.0,
       blockNegativestock: json["BLOCK_NEGATIVESTOCK"] ?? "",
       blockMinimumprice: json["BLOCK_MINIMUMPRICE"] ?? "",
       validatePcs: json["VALIDATE_PCS"] ?? false,
-      metalRate: json["METAL_RATE"] ?? 0,
-      metalRatePergms24Karat: json["METAL_RATE_PERGMS_24KARAT"] ?? 0,
+      metalRate: json["METAL_RATE"] ?? 0.0,
+      metalRatePergms24Karat: json["METAL_RATE_PERGMS_24KARAT"] ?? 0.0,
       metalRatePergmsItemkarat: json["METAL_RATE_PERGMS_ITEMKARAT"] ?? 0.0,
       giftVoucher: json["GIFT_VOUCHER"] ?? false,
       dontShowStockbal: json["DONT_SHOW_STOCKBAL"] ?? false,
-      pcsToGms: json["PCS_TO_GMS"] ?? 0,
+      pcsToGms: json["PCS_TO_GMS"] ?? 0.0,
       isBarcodedItem: json["IS_BARCODED_ITEM"] ?? false,
       makingOn: json["MAKING_ON"] ?? "",
       lessthancost: json["LESSTHANCOST"] ?? false,
@@ -278,16 +279,16 @@ class StockInfo {
 
 class TaxInfo {
   TaxInfo({
-    required this.statecode,
-    required this.gstCode,
-    required this.hsnCode,
-    required this.cgstPer,
-    required this.sgstPer,
-    required this.igstPer,
-    required this.cgstAccode,
-    required this.sgstAccode,
-    required this.igstAccode,
-    required this.posTaxAccode,
+    this.statecode = "",
+    this.gstCode = "",
+    this.hsnCode = "",
+    this.cgstPer = "0.0",
+    this.sgstPer = "0.0",
+    this.igstPer = "0.0",
+    this.cgstAccode = "",
+    this.sgstAccode = "",
+    this.igstAccode = "",
+    this.posTaxAccode = "",
   });
 
   final String statecode;
@@ -306,9 +307,9 @@ class TaxInfo {
       statecode: json["STATECODE"] ?? "",
       gstCode: json["GST_CODE"] ?? "",
       hsnCode: json["HSN_CODE"] ?? "",
-      cgstPer: json["CGST_PER"] ?? "",
-      sgstPer: json["SGST_PER"] ?? "",
-      igstPer: json["IGST_PER"] ?? "",
+      cgstPer: json["CGST_PER"] ?? "0.0",
+      sgstPer: json["SGST_PER"] ?? "0.0",
+      igstPer: json["IGST_PER"] ?? "0.0",
       cgstAccode: json["CGST_ACCODE"] ?? "",
       sgstAccode: json["SGST_ACCODE"] ?? "",
       igstAccode: json["IGST_ACCODE"] ?? "",
