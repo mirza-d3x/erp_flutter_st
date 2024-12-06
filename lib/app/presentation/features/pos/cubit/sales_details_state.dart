@@ -8,4 +8,9 @@ sealed class SalesDetailsState extends Equatable {
 }
 
 final class SalesDetailsInitial extends SalesDetailsState {}
-final class SalesDetailsLoaded extends SalesDetailsState {}
+
+final class SalesDetailsLoaded extends SalesDetailsState {
+  final RetailSalesStockValidation stockData;
+
+  const SalesDetailsLoaded({required this.stockData});
+}
