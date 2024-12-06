@@ -19,6 +19,10 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
   late final FocusNode makingRateFocusNode;
   late final FocusNode grossWtFocusNode;
   late final FocusNode netAmountFocusNode;
+  late final FocusNode pcsFocusNode;
+  late final FocusNode amountFocusNode;
+  late final FocusNode discountPercentFocusNode;
+  late final FocusNode discountAmountFocusNode;
 
   late final TextEditingController divisionController;
   late final TextEditingController stockCodeController;
@@ -47,14 +51,17 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
   //
   late final TextEditingController remarks;
 
-  late RetailSalesStockValidation stockData;
+  RetailSalesStockValidation stockData = RetailSalesStockValidation();
 
   _init() {
     makingAmountFocus = FocusNode();
     makingRateFocusNode = FocusNode();
     grossWtFocusNode = FocusNode();
     netAmountFocusNode = FocusNode();
-
+    pcsFocusNode = FocusNode();
+    amountFocusNode = FocusNode();
+    discountPercentFocusNode = FocusNode();
+    discountAmountFocusNode = FocusNode();
     remarks = TextEditingController();
 
     // Sales Details Field
@@ -116,6 +123,35 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
         performReverseCalculation("netAmount");
       }
     });
+
+    pcsFocusNode.addListener(() {
+      if (!pcsFocusNode.hasFocus &&
+          (num.tryParse(pcsController.text) ?? 0.0) > 0) {
+        performForwardCalculation();
+      }
+    });
+
+    amountFocusNode.addListener(() {
+      if (!amountFocusNode.hasFocus &&
+          (num.tryParse(amountController.text) ?? 0.0) > 0) {
+        performForwardCalculation();
+      }
+    });
+
+    discountPercentFocusNode.addListener(() {
+      if (!discountPercentFocusNode.hasFocus &&
+          (num.tryParse(discountPercentController.text) ?? 0.0) > 0) {
+        performReverseCalculation("discountPercent");
+      }
+    });
+
+    discountAmountFocusNode.addListener(() {
+      if (!discountAmountFocusNode.hasFocus &&
+          (num.tryParse(discountAmountController.text) ?? 0.0) > 0) {
+        performReverseCalculation("discountAmount");
+      }
+    });
+
     emitState();
   }
 
@@ -131,9 +167,8 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
 
     if (stockData.resultStatus?.resultType == 'Success' &&
         stockData.resultStatus?.validStock == true) {
-      divisionController.text = stockData.stockInfo?.division ?? '0.00';
-      stockDescriptionController.text =
-          stockData.stockInfo?.description ?? '0.00';
+      divisionController.text = stockData.stockInfo?.division ?? 'M';
+      stockDescriptionController.text = stockData.stockInfo?.description ?? '';
       pcsController.text = stockData.stockInfo?.balancePcs ?? '0.00';
       stoneWtController.text =
           stockData.stockInfo?.stoneWt.toString() ?? '0.00';
@@ -142,6 +177,7 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
           stockData.stockInfo?.metalRate.toString() ?? '0.00';
       grossWtController.text = '0.00';
       makingRateController.text = '0.00';
+      rateController.text = stockData.priceInfo!.sellingPrice.toString();
 
       netWtController.text = stockData.stockInfo?.netWt.toString() ?? '0.00';
       purityWeightController.text = '0.00';
@@ -173,36 +209,53 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
     final stoneWt = double.tryParse(stoneWtController.text) ?? 0.0;
     final purity = double.tryParse(purityController.text) ?? 0.0;
     final metalRate = double.tryParse(metalRateController.text) ?? 0.0;
-    final stoneRate = double.tryParse(stoneRateController.text) ?? 0.0;
+    final rate = double.tryParse(rateController.text) ?? 0.0;
+    final pcs = double.tryParse(pcsController.text) ?? 0.0;
     final makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
 
-    // Calculate Net Wt
-    final netWt = grossWt - stoneWt;
+    double totalAmount = 0.0;
+    double taxAmount = 0.0;
+    double netAmount = 0.0;
 
-    // Calculate Pure Weight
-    final pureWeight = netWt * purity;
+    if (stockData.stockInfo!.divisionms == 'M') {
+      // **Metal Calculation**
+      final netWt = grossWt - stoneWt;
+      final pureWeight = netWt * purity;
+      final metalAmount = pureWeight * metalRate;
+      final stoneAmount = stoneWt * rate;
 
-    // Calculate Metal Amount
-    final metalAmount = pureWeight * metalRate;
+      totalAmount = metalAmount + stoneAmount + makingAmount;
 
-    // Calculate Stone Amount
-    final stoneAmount = stoneWt * stoneRate;
+      // Update Metal-specific fields
+      netWtController.text = netWt.toStringAsFixed(2);
+      purityWeightController.text = pureWeight.toStringAsFixed(2);
+      metalAmountController.text = metalAmount.toStringAsFixed(2);
+      stoneAmountController.text = stoneAmount.toStringAsFixed(2);
+    } else if (stockData.stockInfo!.divisionms == 'S') {
+      // **Stone Calculation**
+      final amount = rate * pcs;
+      final discountPercent =
+          double.tryParse(discountPercentController.text) ?? 0.0;
+      final discountAmount = discountPercent > 0
+          ? (amount * discountPercent) / 100
+          : double.tryParse(discountAmountController.text) ?? 0.0;
 
-    // Calculate Total Amount
-    final totalAmount = metalAmount + stoneAmount + makingAmount;
+      totalAmount = amount - discountAmount;
 
-    // Calculate Tax Amount
-    final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
-    final taxAmount = (totalAmount * taxPercent) / 100;
+      // Update Stone-specific fields
+      amountController.text = amount.toStringAsFixed(2);
+      discountAmountController.text = discountAmount.toStringAsFixed(2);
+      discountPercentController.text = discountAmount > 0
+          ? ((discountAmount / amount) * 100).toStringAsFixed(2)
+          : '0.00';
+    }
 
-    // Calculate Net Amount
-    final netAmount = totalAmount + taxAmount;
+    // **Common Calculation**
+    final taxPercent = double.tryParse(taxPercentController.text) ?? 0.0;
+    taxAmount = (totalAmount * taxPercent) / 100;
+    netAmount = totalAmount + taxAmount;
 
-    // Update UI fields
-    netWtController.text = netWt.toStringAsFixed(2);
-    purityWeightController.text = pureWeight.toStringAsFixed(2);
-    metalAmountController.text = metalAmount.toStringAsFixed(2);
-    stoneAmountController.text = stoneAmount.toStringAsFixed(2);
+    // Update Common fields
     totalAmountController.text = totalAmount.toStringAsFixed(2);
     taxAmountController.text = taxAmount.toStringAsFixed(2);
     netAmountController.text = netAmount.toStringAsFixed(2);
@@ -213,91 +266,100 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
   void performReverseCalculation(String trigger) {
     final grossWt = double.tryParse(grossWtController.text) ?? 0.0;
     final netWt = double.tryParse(netWtController.text) ?? 0.0;
-    final taxPercent = double.tryParse(stockData.taxInfo.first.igstPer) ?? 0.0;
-    final makingOn = stockData.stockInfo?.makingOn ?? 'GROSS';
+    final taxPercent = double.tryParse(taxPercentController.text) ?? 0.0;
+    final rate = double.tryParse(rateController.text) ?? 0.0;
+    final pcs = double.tryParse(pcsController.text) ?? 0.0;
 
-    double makingRate = double.tryParse(makingRateController.text) ?? 0.0;
     double makingAmount = double.tryParse(makingAmountController.text) ?? 0.0;
+    double makingRate = double.tryParse(makingRateController.text) ?? 0.0;
     double totalAmount = 0.0;
     double taxAmount = 0.0;
     double netAmount = double.tryParse(netAmountController.text) ?? 0.0;
 
     if (trigger == "netAmount") {
       // Reverse calculate Tax Amount
-      taxAmount = ((netAmount * taxPercent) / (100 + taxPercent)).isFinite
-          ? ((netAmount * taxPercent) / (100 + taxPercent))
-          : 0.0;
+      taxAmount = (netAmount * taxPercent) / (100 + taxPercent);
+      totalAmount = netAmount - taxAmount;
 
-      // Reverse calculate Total Amount
-      totalAmount =
-          (netAmount - taxAmount).isFinite ? (netAmount - taxAmount) : 0.0;
-
-      // Update UI fields
+      // Update Common fields
       taxAmountController.text = taxAmount.toStringAsFixed(2);
       totalAmountController.text = totalAmount.toStringAsFixed(2);
 
-      // Recalculate Making Amount and Making Rate
-      final metalAmount = double.tryParse(metalAmountController.text) ?? 0.0;
-      final stoneAmount = double.tryParse(stoneAmountController.text) ?? 0.0;
+      if (stockData.stockInfo!.divisionms == 'M') {
+        // **Metal Reverse Calculation**
+        final metalAmount = double.tryParse(metalAmountController.text) ?? 0.0;
+        final stoneAmount = double.tryParse(stoneAmountController.text) ?? 0.0;
 
-      // Calculate Making Amount as the residual after subtracting metal and stone amounts
-      makingAmount = totalAmount - metalAmount - stoneAmount;
+        makingAmount = totalAmount - metalAmount - stoneAmount;
 
-      // Calculate Making Rate based on Making Amount
-      if (grossWt > 0 || netWt > 0) {
-        makingRate =
-            (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
-                    .isFinite
-                ? (makingOn == 'NET'
-                    ? makingAmount / netWt
-                    : makingAmount / grossWt)
-                : 0.0;
+        if (grossWt > 0 || netWt > 0) {
+          makingRate = (stockData.stockInfo?.makingOn ?? 'GROSS') == 'NET'
+              ? makingAmount / netWt
+              : makingAmount / grossWt;
+        }
+
+        makingAmountController.text = makingAmount.toStringAsFixed(2);
+        makingRateController.text = makingRate.toStringAsFixed(2);
+      } else if (stockData.stockInfo!.divisionms == 'S') {
+        // **Stone Reverse Calculation**
+        final amount = rate * pcs;
+        final discountAmount = amount - totalAmount;
+        final discountPercent = (discountAmount / amount) * 100;
+
+        discountAmountController.text = discountAmount.toStringAsFixed(2);
+        discountPercentController.text = discountPercent.toStringAsFixed(2);
       }
 
-      // Update UI fields for Making Amount and Making Rate
-      makingAmountController.text = makingAmount.toStringAsFixed(2);
-      makingRateController.text = makingRate.toStringAsFixed(2);
-
-      // Trigger forward calculation to recalculate dependent fields
       performForwardCalculation();
     } else if (trigger == "makingAmount") {
       // Reverse calculate Making Rate from Making Amount
       if (grossWt > 0 || netWt > 0) {
-        makingRate =
-            (makingOn == 'NET' ? makingAmount / netWt : makingAmount / grossWt)
-                    .isFinite
-                ? (makingOn == 'NET'
-                    ? makingAmount / netWt
-                    : makingAmount / grossWt)
-                : 0.0;
+        makingRate = (stockData.stockInfo?.makingOn ?? 'GROSS') == 'NET'
+            ? makingAmount / netWt
+            : makingAmount / grossWt;
       }
 
-      // Update Making Rate in UI
       makingRateController.text = makingRate.toStringAsFixed(2);
-
-      // Trigger forward calculation
       performForwardCalculation();
     } else if (trigger == "makingRate") {
       // Reverse calculate Making Amount from Making Rate
       if (grossWt > 0 || netWt > 0) {
-        makingAmount = (makingOn == 'NET'
-                    ? makingRate * netWt
-                    : makingRate * grossWt)
-                .isFinite
-            ? (makingOn == 'NET' ? makingRate * netWt : makingRate * grossWt)
-            : 0.0;
+        makingAmount = (stockData.stockInfo?.makingOn ?? 'GROSS') == 'NET'
+            ? makingRate * netWt
+            : makingRate * grossWt;
       }
 
-      // Update Making Amount in UI
       makingAmountController.text = makingAmount.toStringAsFixed(2);
+      performForwardCalculation();
+    } else if (trigger == "discountPercent") {
+      // Reverse calculate Discount Amount from Discount Percent
+      final amount = rate * pcs;
+      final discountPercent =
+          double.tryParse(discountPercentController.text) ?? 0.0;
+      final discountAmount = (amount * discountPercent) / 100;
 
-      // Trigger forward calculation
+      discountAmountController.text = discountAmount.toStringAsFixed(2);
+      totalAmount = amount - discountAmount;
+
+      totalAmountController.text = totalAmount.toStringAsFixed(2);
+      performForwardCalculation();
+    } else if (trigger == "discountAmount") {
+      // Reverse calculate Discount Percent from Discount Amount
+      final amount = rate * pcs;
+      final discountAmount =
+          double.tryParse(discountAmountController.text) ?? 0.0;
+      final discountPercent = (discountAmount / amount) * 100;
+
+      discountPercentController.text = discountPercent.toStringAsFixed(2);
+      totalAmount = amount - discountAmount;
+
+      totalAmountController.text = totalAmount.toStringAsFixed(2);
       performForwardCalculation();
     }
   }
 
   emitState() {
     emit(SalesDetailsInitial());
-    emit(SalesDetailsLoaded());
+    emit(SalesDetailsLoaded(stockData: stockData));
   }
 }
