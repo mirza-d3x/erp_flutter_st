@@ -98,9 +98,12 @@ class SalesDetailsDialog extends StatelessWidget {
                                       RegExp(r'^\d+(\.\d*)?$'),
                                     ),
                                   ],
-                                  enabled: false,
+                                  enabled:
+                                      state.stockData.stockInfo?.divisionms ==
+                                          'S',
                                   labelText: 'Pcs',
                                   controller: cubit.pcsController,
+                                  focusNode: cubit.pcsFocusNode,
                                 ),
                               ),
                               const SizedBox(width: 10),
@@ -114,50 +117,64 @@ class SalesDetailsDialog extends StatelessWidget {
                                       RegExp(r'^\d+(\.\d*)?$'),
                                     ),
                                   ],
-                                  enabled: cubit.stockDescriptionController.text
-                                      .isNotEmpty,
+                                  enabled: (state.stockData.status ==
+                                          'Success' &&
+                                      state.stockData.stockInfo?.divisionms !=
+                                          'S'),
                                   focusNode: cubit.grossWtFocusNode,
                                   labelText: 'Gross Wt',
                                   controller: cubit.grossWtController,
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Stone Wt',
-                                  controller: cubit.stoneWtController,
+                              Visibility(
+                                visible:
+                                    state.stockData.stockInfo?.divisionms !=
+                                        'S',
+                                child: Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Stone Wt',
+                                    controller: cubit.stoneWtController,
+                                  ),
                                 ),
                               ),
                               const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Net Wt',
-                                  controller: cubit.netWtController,
+                              Visibility(
+                                visible:
+                                    state.stockData.stockInfo?.divisionms !=
+                                        'S',
+                                child: Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Net Wt',
+                                    controller: cubit.netWtController,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                          const SizedBox(height: 5),
+                          state.stockData.stockInfo?.divisionms == 'S'
+                              ? const SizedBox()
+                              : const SizedBox(height: 5),
                           Visibility(
-                            visible: cubit.divisionController.text == 'G',
+                            visible: state.stockData.stockInfo?.division == 'G',
                             child: Row(
                               children: [
                                 Flexible(
@@ -195,116 +212,132 @@ class SalesDetailsDialog extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Metal Rate',
-                                  controller: cubit.metalRateController,
+                          Visibility(
+                            visible:
+                                state.stockData.stockInfo?.divisionms != 'S',
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Metal Rate',
+                                    controller: cubit.metalRateController,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Metal Amount',
-                                  controller: cubit.metalAmountController,
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Metal Amount',
+                                    controller: cubit.metalAmountController,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Stone Rate',
-                                  controller: cubit.stoneRateController,
+                          state.stockData.stockInfo?.divisionms == 'S'
+                              ? const SizedBox()
+                              : const SizedBox(height: 5),
+                          Visibility(
+                            visible:
+                                state.stockData.stockInfo?.divisionms != 'S',
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Stone Rate',
+                                    controller: cubit.stoneRateController,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: false,
-                                  labelText: 'Stone Amount',
-                                  controller: cubit.stoneAmountController,
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: false,
+                                    labelText: 'Stone Amount',
+                                    controller: cubit.stoneAmountController,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: cubit.stockDescriptionController.text
-                                      .isNotEmpty,
-                                  focusNode: cubit.makingRateFocusNode,
-                                  labelText: 'Making Rate',
-                                  controller: cubit.makingRateController,
+                          state.stockData.stockInfo?.divisionms == 'S'
+                              ? const SizedBox()
+                              : const SizedBox(height: 5),
+                          Visibility(
+                            visible:
+                                state.stockData.stockInfo?.divisionms != 'S',
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: cubit.stockDescriptionController
+                                        .text.isNotEmpty,
+                                    focusNode: cubit.makingRateFocusNode,
+                                    labelText: 'Making Rate',
+                                    controller: cubit.makingRateController,
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(width: 10),
-                              Flexible(
-                                fit: FlexFit.loose,
-                                child: CustomTextField(
-                                  textInputType: TextInputType.number,
-                                  textInputAction: TextInputAction.next,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.allow(
-                                      RegExp(r'^\d+(\.\d*)?$'),
-                                    ),
-                                  ],
-                                  enabled: cubit.stockDescriptionController.text
-                                      .isNotEmpty,
-                                  focusNode: cubit.makingAmountFocus,
-                                  labelText: 'Making Amount',
-                                  controller: cubit.makingAmountController,
+                                const SizedBox(width: 10),
+                                Flexible(
+                                  fit: FlexFit.loose,
+                                  child: CustomTextField(
+                                    textInputType: TextInputType.number,
+                                    textInputAction: TextInputAction.next,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                        RegExp(r'^\d+(\.\d*)?$'),
+                                      ),
+                                    ],
+                                    enabled: cubit.stockDescriptionController
+                                        .text.isNotEmpty,
+                                    focusNode: cubit.makingAmountFocus,
+                                    labelText: 'Making Amount',
+                                    controller: cubit.makingAmountController,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           const SizedBox(height: 5),
                           Visibility(
@@ -340,6 +373,7 @@ class SalesDetailsDialog extends StatelessWidget {
                                     enabled: false,
                                     labelText: 'Amount',
                                     controller: cubit.amountController,
+                                    focusNode: cubit.amountFocusNode,
                                   ),
                                 ),
                               ],
@@ -360,9 +394,12 @@ class SalesDetailsDialog extends StatelessWidget {
                                         RegExp(r'^\d+(\.\d*)?$'),
                                       ),
                                     ],
-                                    enabled: false,
+                                    enabled:
+                                        state.stockData.stockInfo?.divisionms ==
+                                            'S',
                                     labelText: 'Discount %',
                                     controller: cubit.discountPercentController,
+                                    focusNode: cubit.discountPercentFocusNode,
                                   ),
                                 ),
                                 const SizedBox(width: 10),
@@ -376,9 +413,12 @@ class SalesDetailsDialog extends StatelessWidget {
                                         RegExp(r'^\d+(\.\d*)?$'),
                                       ),
                                     ],
-                                    enabled: false,
+                                    enabled:
+                                        state.stockData.stockInfo?.divisionms ==
+                                            'S',
                                     labelText: 'Discount Amount',
                                     controller: cubit.discountAmountController,
+                                    focusNode: cubit.discountAmountFocusNode,
                                   ),
                                 ),
                               ],
