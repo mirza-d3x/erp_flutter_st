@@ -8,6 +8,7 @@ import 'package:erp_mobile/app/repository/modesl/response_models/branch_karat_ra
 import 'package:erp_mobile/app/repository/modesl/response_models/retail_sales_stock_validation_response.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/sales_person_response_model.dart';
 import 'package:erp_mobile/app/widgets/dialogs/custom_dialogs.dart';
+import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:erp_mobile/utils/date_time_extension.dart';
 import 'package:flutter/material.dart';
@@ -71,9 +72,9 @@ class PosCubit extends Cubit<PosState> {
 
   _getKarateRateData() async {
     _karatRate = await _serviceLocator.apiService
-        .sendBranchKaratRateRequest(branchName: 'HO');
+        .sendBranchKaratRateRequest(branchName: UserController().userBranch);
     _salesPersonsResponse =
-        await _serviceLocator.apiService.sendSalesPersonRequet(branch: 'HO');
+        await _serviceLocator.apiService.sendSalesPersonRequet(branch: UserController().userBranch);
     _salesPersonsList =
         _salesPersonsResponse.map((person) => person.salespersonCode).toList();
     emitState();

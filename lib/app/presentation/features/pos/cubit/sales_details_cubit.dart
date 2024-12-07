@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/retail_sales_stock_validation_response.dart';
 import 'package:erp_mobile/app/widgets/dialogs/custom_dialogs.dart';
+import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:flutter/material.dart';
 
@@ -159,10 +160,10 @@ class SalesDetailsCubit extends Cubit<SalesDetailsState> {
     stockData =
         await _serviceLocator.apiService.sendRetailsSalesStockValidationRequest(
       stockCode: stockCodeController.text,
-      branch: 'HO',
+      branch: UserController().userBranch,
       voucherType: 'POS',
       voucherDate: vouceherDate,
-      user: 'ADMIN',
+      user: UserController().userName,
     );
 
     if (stockData.resultStatus?.resultType == 'Success' &&

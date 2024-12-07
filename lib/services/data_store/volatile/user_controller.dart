@@ -3,12 +3,16 @@ final class UserController {
   UserController._();
   factory UserController() => _instance;
 
-  String userEmail = "";
-  String userPhone = "";
+  String userName = "";
+  String groupName = "";
+  String userBranch = "";
+  String userYear = "";
   Map<String, List<String>> retailMenuSubModules = {};
 
   void dispose() {
-    userEmail = "";
-    userPhone = "";
+    userName = "";
+    userBranch = "";
+    userBranch = '';
+    userYear = '';
   }
 }

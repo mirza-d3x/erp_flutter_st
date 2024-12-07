@@ -114,8 +114,8 @@ class ApiController implements ApiServices {
   Future<List<ModuleResponse>> sendMenuModuleRequest(
       {required String userName, required String branch}) async {
     try {
-      var res = await _client
-          .get(Uri.parse('$_baseUrl${'${Endpoints.webMenuModule}ADMIN/HO'}'));
+      var res = await _client.get(Uri.parse(
+          '$_baseUrl${'${Endpoints.webMenuModule}${UserController().userName}/${UserController().userBranch}'}'));
       consoleLog("Request: $_baseUrl${Endpoints.productModules}");
       consoleLog("Menu Module: ${res.body}");
       final response = MenuModule.fromJson(_handleResponse(res));
@@ -132,7 +132,7 @@ class ApiController implements ApiServices {
       {required String branchName}) async {
     try {
       var res = await _client.get(Uri.parse(
-          '$_baseUrl${'${Endpoints.branchKaratRate}$branchName/HO'}'));
+          '$_baseUrl${'${Endpoints.branchKaratRate}$branchName/${UserController().userBranch}'}'));
       // consoleLog("Request: $_baseUrl${Endpoints.productModules}");
       // consoleLog("Menu Module: ${res.body}");
       final response = BranchKaratRate.fromJson(_handleResponse(res));
