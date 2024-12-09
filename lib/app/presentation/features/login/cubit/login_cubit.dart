@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/app/widgets/snackbar/custom_snackbar.dart';
+import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:flutter/material.dart';
 
@@ -83,6 +84,10 @@ class LoginCubit extends Cubit<LoginState> {
     final verifyUser = await _serviceLocator.apiService
         .sendBranchMasterRequest(branchName: _selectedBranch);
 
+    UserController().userName = userNameController.text.trim();
+    UserController().userBranch = _selectedBranch;
+    UserController().groupName = verifyUser.response!.groupName;
+    UserController().userYear = _selectedYears;
     if (verifyUser.status == 'Success') {
       _serviceLocator.navigationService.openDashboardPageRoute(context);
     } else {
