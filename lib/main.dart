@@ -32,7 +32,7 @@ Future<void> mainInit() async {
       runApp(
         Root(
           // appThemeMode: AppThemeMode.lightTheme,
-          app: YearApp(
+          app: ErpApp(
             initialRoute: initialRoute,
             serviceLocator: serviceLocator,
           ),

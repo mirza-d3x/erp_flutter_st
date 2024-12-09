@@ -18,7 +18,7 @@ class Root extends StatelessWidget {
   });
 
   // final AppThemeMode appThemeMode;
-  final YearApp app;
+  final ErpApp app;
   final ServiceLocator serviceLocator;
 
   @override
@@ -36,8 +36,8 @@ class Root extends StatelessWidget {
   }
 }
 
-class YearApp extends StatelessWidget {
-  const YearApp({
+class ErpApp extends StatelessWidget {
+  const ErpApp({
     super.key,
     required this.initialRoute,
     required this.serviceLocator,
@@ -50,7 +50,7 @@ class YearApp extends StatelessWidget {
     return AppTheme(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: '25 Year More',
+        title: 'ERP Flutter',
         themeMode: CustomTheme.modelTheme == CustomMode.light
             ? ThemeMode.light
             : ThemeMode.dark,
