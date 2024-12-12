@@ -3,7 +3,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/sales_details_dialog.dart';
-import 'package:erp_mobile/app/presentation/features/pos/cubit/sales_details_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/sales_details_cubit/sales_details_cubit.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/branch_karat_rate_model.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/retail_sales_stock_validation_response.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/sales_person_response_model.dart';
