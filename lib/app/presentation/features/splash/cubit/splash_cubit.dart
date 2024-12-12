@@ -43,15 +43,14 @@ class SplashCubit extends Cubit<SplashState> {
         () {
           // Navigate after splash loading
 
-          // _serviceLocator.navigationService.openLoginPageRoute(context);
-          _serviceLocator.navigationService.openPosPageRoute(context);
+          _serviceLocator.navigationService.openLoginPageRoute(context);
         },
       );
     }
   }
 
   @override
-  Future<void> close() {
+  Future<void> close() {  
     consoleLog("Splash Cubit closed");
     return super.close();
   }

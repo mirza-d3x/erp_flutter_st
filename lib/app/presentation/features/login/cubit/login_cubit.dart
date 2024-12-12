@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:erp_mobile/app/widgets/snackbar/custom_snackbar.dart';
+import 'package:erp_mobile/services/data_store/non_volatile/pref_service/preference_service.dart';
+import 'package:erp_mobile/services/data_store/non_volatile/preference_keys.dart';
 import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +26,7 @@ class LoginCubit extends Cubit<LoginState> {
             selectedFinancialYeaers: '')) {
     _init();
   }
+  PreferenceService preferenceService = PreferenceService();
 
   late final TextEditingController userNameController;
   late final TextEditingController passwordController;
@@ -88,6 +91,12 @@ class LoginCubit extends Cubit<LoginState> {
     UserController().userBranch = _selectedBranch;
     UserController().groupName = verifyUser.response!.groupName;
     UserController().userYear = _selectedYears;
+    preferenceService.save(
+        PreferenceKeys.groupName, verifyUser.response!.groupName);
+    preferenceService.save(PreferenceKeys.userBranch, _selectedBranch);
+    preferenceService.save(
+        PreferenceKeys.userName, userNameController.text.trim());
+    preferenceService.save(PreferenceKeys.userYear, _selectedYears);
     if (verifyUser.status == 'Success') {
       _serviceLocator.navigationService.openDashboardPageRoute(context);
     } else {
