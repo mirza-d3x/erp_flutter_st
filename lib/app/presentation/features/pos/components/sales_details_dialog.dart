@@ -1,5 +1,5 @@
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
-import 'package:erp_mobile/app/presentation/features/pos/sales_details_cubit/sales_details_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/sales_details_cubit/sales_details_cubit.dart';
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/custom_text_field.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';

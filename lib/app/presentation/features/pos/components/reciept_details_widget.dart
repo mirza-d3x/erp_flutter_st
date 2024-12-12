@@ -30,7 +30,7 @@ class RecieptDetailsWidget extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$500',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -48,7 +48,7 @@ class RecieptDetailsWidget extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$50',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -66,7 +66,7 @@ class RecieptDetailsWidget extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$20',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -84,7 +84,7 @@ class RecieptDetailsWidget extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$530',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),

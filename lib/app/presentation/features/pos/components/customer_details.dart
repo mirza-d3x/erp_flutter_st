@@ -71,7 +71,9 @@ class CustomerDetails extends StatelessWidget {
                 Expanded(
                   flex: 1,
                   child: CustomElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      cubit.onAddCustomer(context);
+                    },
                     text: 'Add Customer',
                   ),
                 ),

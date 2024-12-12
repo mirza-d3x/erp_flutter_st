@@ -5,7 +5,7 @@ import 'package:erp_mobile/app/presentation/features/pos/components/customer_det
 import 'package:erp_mobile/app/presentation/features/pos/components/line_items_tab_view.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/reciept_details_widget.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/sales_summary_panel.dart';
-import 'package:erp_mobile/app/presentation/features/pos/drawer_cubit/drawer_cubit_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/drawer_cubit/drawer_cubit_cubit.dart';
 import 'package:erp_mobile/app/widgets/custom_button.dart';
 import 'package:erp_mobile/app/widgets/dashboard_app_bar.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';

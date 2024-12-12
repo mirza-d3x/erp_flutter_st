@@ -1,7 +1,7 @@
 import 'package:erp_mobile/app/presentation/features/pos/components/karat_rate_table.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/total_details_panel.dart';
 import 'package:erp_mobile/app/presentation/features/pos/cubit/pos_cubit.dart';
-import 'package:erp_mobile/app/presentation/features/pos/drawer_cubit/drawer_cubit_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/drawer_cubit/drawer_cubit_cubit.dart';
 import 'package:erp_mobile/constants/theme/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

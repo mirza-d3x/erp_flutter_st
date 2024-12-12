@@ -30,7 +30,7 @@ class SalesSummaryPanel extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '10',
+                  '0.0',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -48,7 +48,7 @@ class SalesSummaryPanel extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '50',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -66,7 +66,7 @@ class SalesSummaryPanel extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$150',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),
@@ -84,7 +84,7 @@ class SalesSummaryPanel extends StatelessWidget {
                       color: FontColor.fontPrimary),
                 ),
                 Text(
-                  '\$1000',
+                  '0.00',
                   style: customTextStyle(
                       fontStyle: FontStyle.bodyMregular,
                       color: FontColor.fontPrimary),

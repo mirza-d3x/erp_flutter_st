@@ -56,8 +56,9 @@ class CustomDropdownPickerState extends State<CustomDropdownPicker> {
             widget.onChanged!(value);
           }
         },
-        icon: const Icon(Icons.arrow_downward),
+        icon: const Icon(Icons.arrow_drop_down),
         decoration: InputDecoration(
+          labelText: widget.placeholder,
           contentPadding: const EdgeInsets.symmetric(horizontal: 16),
           border: InputBorder.none,
           labelStyle: customTextStyle(

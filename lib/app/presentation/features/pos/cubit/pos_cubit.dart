@@ -1,13 +1,13 @@
 // ignore_for_file: unused_field
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:erp_mobile/app/presentation/features/pos/components/add_customer.dart';
+import 'package:erp_mobile/app/presentation/features/pos/components/customer_details.dart';
 import 'package:erp_mobile/app/presentation/features/pos/components/sales_details_dialog.dart';
-import 'package:erp_mobile/app/presentation/features/pos/sales_details_cubit/sales_details_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/customer_details_cubit/customer_details_cubit_cubit.dart';
+import 'package:erp_mobile/app/presentation/features/pos/cubit/sales_details_cubit/sales_details_cubit.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/branch_karat_rate_model.dart';
-import 'package:erp_mobile/app/repository/modesl/response_models/retail_sales_stock_validation_response.dart';
 import 'package:erp_mobile/app/repository/modesl/response_models/sales_person_response_model.dart';
-import 'package:erp_mobile/app/widgets/dialogs/custom_dialogs.dart';
 import 'package:erp_mobile/services/data_store/volatile/user_controller.dart';
 import 'package:erp_mobile/services/service_locator.dart';
 import 'package:erp_mobile/utils/date_time_extension.dart';
@@ -21,8 +21,6 @@ class PosCubit extends Cubit<PosState> {
   PosCubit(this._serviceLocator) : super(PosInitial()) {
     _init();
   }
-
- 
 
   // Voucher Details
   late final TextEditingController voucherName;
@@ -42,15 +40,11 @@ class PosCubit extends Cubit<PosState> {
   late final String expireyDate;
 
   // Sales Details Dialog
- 
 
   late List<KaratRateResponse> _karatRate;
   late List<SalesPersons> _salesPersonsResponse;
 
- 
-
   void _init() {
-   
     voucherName = TextEditingController(text: 'POS');
     voucherNo = TextEditingController(text: '1');
     currency = TextEditingController(text: 'AED');
@@ -64,32 +58,39 @@ class PosCubit extends Cubit<PosState> {
     idType = TextEditingController();
     customerId = TextEditingController();
     expireyDate = '';
-  
-    _getKarateRateData();
 
-   
+    _getKarateRateData();
   }
 
   _getKarateRateData() async {
     _karatRate = await _serviceLocator.apiService
         .sendBranchKaratRateRequest(branchName: UserController().userBranch);
-    _salesPersonsResponse =
-        await _serviceLocator.apiService.sendSalesPersonRequet(branch: UserController().userBranch);
+    _salesPersonsResponse = await _serviceLocator.apiService
+        .sendSalesPersonRequet(branch: UserController().userBranch);
     _salesPersonsList =
         _salesPersonsResponse.map((person) => person.salespersonCode).toList();
     emitState();
   }
-
- 
- 
 
   void openDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) {
         return BlocProvider(
-          create: (context) => SalesDetailsCubit(_serviceLocator,voucherDate),
+          create: (context) => SalesDetailsCubit(_serviceLocator, voucherDate),
           child: const SalesDetailsDialog(),
+        );
+      },
+    );
+  }
+
+  void onAddCustomer(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return BlocProvider(
+          create: (context) => CustomerDetailsCubitCubit(),
+          child: const CustomerDetailsDialog(),
         );
       },
     );
